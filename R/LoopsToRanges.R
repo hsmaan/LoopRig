@@ -25,7 +25,7 @@ LoopsToRanges <- function(..., loop_names = NULL, custom_cols = 0) {
   )
   
   if (class(test_table) != "data.frame") {
-    stop("Error in reading BEDPE file, please ensure file specification and format accuracy")
+    stop("Error in reading BEDPE file(s), please ensure file specification and format accuracy")
   }
   
   if (length(colnames(test_table)) != (6 + custom_cols)) {

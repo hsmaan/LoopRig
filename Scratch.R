@@ -6,6 +6,7 @@ setwd("yue_looplists/")
 
 ### LoopsToRanges Test ###
 
-loop_ranges <- LoopsToRanges("Rubin_2017.Epidermal_Keratinocyte_day0.hg19.peakachu-merged.loops", custom_cols = 0, header_col = TRUE, loop_names = "test")
+loop_ranges <- LoopsToRanges("Rubin_2017.Epidermal_Keratinocyte_day0.hg19.peakachu-merged.loops", custom_cols = 5, loop_names = "test")
 
 loop_ranges
+

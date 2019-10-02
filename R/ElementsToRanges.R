@@ -1,7 +1,7 @@
 #' Create a list of ranges objects from element data
 #' 
 #' Uses tab delimited element data in the form of BED4 or BED12 files to create GRanges element objects.
-#' @param ... Up to 10 tab delimited element data files in BED4 or BED12 format  
+#' @param ... Any number of tab delimited element data files in BED4 or BED12 format  
 #' @param file_format The type of input element file - either 'BED4' or 'BED12' format
 #' @param element_names A character vector of names for the element datasets (optional)
 #' @return A 'ElementRanges' class object: list of GRanges element data objects 
@@ -11,8 +11,21 @@ ElementsToRanges <- function(..., file_format, element_names = NULL) {
   
   pre_list <- list(...)
   
-  if (nargs() > 10) {
-    stop("Please enter 10 or less BED12 files")
+  if (length(pre_list) == 0) {
+    stop("Please enter at least one BED4/12 element data file")
+  }
+  
+  test_table <- tryCatch(
+    {
+      read.table(pre_list[[1]], header = FALSE)
+    },
+    error=function(error_text) {
+      return(NA)
+    }
+  )
+  
+  if (class(test_table) != "data.frame") {
+    stop("Error in reading BED file(s), please ensure file specification and format accuracy")
   }
   
   meta_classes <- c("character", "numeric", "numeric", "character")
@@ -26,7 +39,7 @@ ElementsToRanges <- function(..., file_format, element_names = NULL) {
   } 
   
   else {
-    stop("Please enter an appropriate format for the element files")
+    stop("Please enter an appropriate format for the element files (BED4/BED12)")
   }
   
   
