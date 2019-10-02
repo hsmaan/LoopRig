@@ -19,7 +19,7 @@ ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100,
   }
 
   if (class(loop_ranges) != "LoopRanges") {
-    stop("Please enter a class of 'LoopRanges' for the loop_ranges parameter")
+    stop("Please enter an object of class 'LoopRanges' for the loop_ranges parameter")
   }
   
   if (!split_anchors) {
