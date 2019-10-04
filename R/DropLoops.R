@@ -1,4 +1,4 @@
-#' A variety of options to drop loops from the 'LoopRanges' object
+#' A variety of options to drop loops from 'LoopRanges' objects
 #'
 #' Drops loops based on a type of filter and given options. Can be used to filter the loops in the 'LoopRanges' object before or after determining consensus.
 #' @param type Type of filtering when determining which loops to drop:
