@@ -20,3 +20,6 @@ element_ranges <- ElementsToRanges("enhancers.bed", element_names = "enhancers",
 
 element_ranges
 
+### DropLoops Tests ###
+
+drop_loop_ranges <- DropLoops(loop_ranges, "Anchor Size", c(0, 10000))

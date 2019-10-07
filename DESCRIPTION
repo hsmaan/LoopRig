@@ -4,7 +4,9 @@ Title: A toolkit for the integration and analysis of chromatin loop data
 Version: 1.0
 Imports: 
   GenomicRanges,
-  IRanges
+  IRanges,
+  utils,
+  S4Vectors
 Date: 2019-05-28
 Author: Hassaan Maan
 Maintainer: Hassaan Maan <hurmaan99@gmail.com>

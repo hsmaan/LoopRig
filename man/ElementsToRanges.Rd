@@ -19,8 +19,8 @@ ElementsToRanges(..., file_format, element_names = NULL,
 \item{custom_mcols}{An integer or vector of integers indicating which columns are used for metadata (optional)}
 }
 \value{
-A 'ElementRanges' class object: list of GRanges element data objects
+An \emph{ElementRanges} class object: list of GRanges element data objects
 }
 \description{
-Uses tab delimited element data in the form of BED4 or BED12 files to create GRanges element objects.
+Uses tab delimited element data in the form of BED4 or BED12 files to create GRanges element objects
 }

@@ -17,8 +17,8 @@ LoopsToRanges(..., loop_names = NULL, custom_cols = 0,
 \item{custom_mcols}{An integer or vector of integers indicating which columns are used for metadata (optional)}
 }
 \value{
-A \emph{italics}LoopRanges class object: list of GRanges looping data objects
+A \emph{LoopRanges} class object: list of GRanges looping data objects
 }
 \description{
-Uses tab delimited looping data in the form of BEDPE files to create LoopList objects
+Uses tab delimited looping data in the form of BEDPE files to create custom GRanges loop objects
 }

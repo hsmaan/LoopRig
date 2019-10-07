@@ -2,4 +2,9 @@ exportPattern("^[[:alpha:]]+")
 
 import('GenomicRanges')
 import('IRanges')
+
 importFrom("utils", "read.table")
+importFrom("utils", "write.table")
+importFrom("S4Vectors", "queryHits")
+importFrom("S4Vectors", "subjectHits")
+importFrom("S4Vectors", "intersect.Vector")
