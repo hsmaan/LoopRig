@@ -16,13 +16,13 @@ ConsensusLoops(loop_ranges, stringency = 1, overlap_threshold = 100,
 
 \item{split_anchors}{A boolean (TRUE/FALSE) that determines if the different loop anchor sizes are considered together (Default=TRUE) or seperately (FALSE)}
 
-\item{resolutions}{An optional numerical vector of anchor sizes - to be used only when split_anchors=TRUE.}
+\item{resolutions}{An optional numerical vector of anchor sizes - to be used only when split_anchors=TRUE}
 
 \item{keep_all}{If TRUE, keeps all of the loops (concatenation of looping datasets)}
 }
 \value{
-A single GRangesList object of the two anchors for the called consensus loops.
+A 'LoopRanges' class object for the consensus loops
 }
 \description{
-Performs filtering on looping data in LoopRanges objects based on custom parameters and returns a single GRangesList object indicating one looping dataset with two anchors.
+Performs filtering on looping data in LoopRanges objects based on custom parameters and returns a single GRangesList object indicating one looping dataset with two anchors
 }

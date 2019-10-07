@@ -4,16 +4,21 @@
 \alias{LoopsToRanges}
 \title{Create a list of ranges objects from looping data}
 \usage{
-LoopsToRanges(..., loop_names = NULL)
+LoopsToRanges(..., loop_names = NULL, custom_cols = 0,
+  custom_mcols = NULL)
 }
 \arguments{
-\item{...}{Up to 10 tab delimited looping data files in HiCCUPS output format}
+\item{...}{Any number of tab delimited loop data files in BEDPE format}
 
 \item{loop_names}{A character vector of names for the loop datasets (optional)}
+
+\item{custom_cols}{An integer indicating the number of extra columns in the BEDPE file (default = 0)}
+
+\item{custom_mcols}{An integer or vector of integers indicating which columns are used for metadata (optional)}
 }
 \value{
-A 'LoopRanges' class object: list of GRanges looping data objects
+A \emph{italics}LoopRanges class object: list of GRanges looping data objects
 }
 \description{
-Uses tab delimited looping data in the form of BED12 files to create GRanges loop objects
+Uses tab delimited looping data in the form of BEDPE files to create LoopList objects
 }

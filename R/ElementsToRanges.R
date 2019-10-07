@@ -1,12 +1,12 @@
 #' Create a list of ranges objects from element data
 #' 
-#' Uses tab delimited element data in the form of BED4 or BED12 files to create GRanges element objects.
+#' Uses tab delimited element data in the form of BED4 or BED12 files to create GRanges element objects
 #' @param ... Any number of tab delimited element data files in BED4 or BED12 format  
 #' @param file_format The type of input element file - either 'BED4' or 'BED12' format
 #' @param element_names A character vector of names for the element datasets (optional)
 #' @param custom_cols An integer indicating the number of extra columns in the BED file. Overrides file_format (optional) 
 #' @param custom_mcols An integer or vector of integers indicating which columns are used for metadata (optional) 
-#' @return A 'ElementRanges' class object: list of GRanges element data objects 
+#' @return An \emph{ElementRanges} class object: list of GRanges element data objects 
 #' @export 
 
 ElementsToRanges <- function(..., file_format, element_names = NULL, custom_cols = NULL, custom_mcols = NULL) {

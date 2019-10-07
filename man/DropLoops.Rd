@@ -2,23 +2,19 @@
 % Please edit documentation in R/DropLoops.R
 \name{DropLoops}
 \alias{DropLoops}
-\title{A variety of options to drop loops from the 'LoopRanges' object}
+\title{A variety of options to drop loops from 'LoopRanges' objects}
 \usage{
-DropLoops(type, ...)
+DropLoops(loop_ranges, type, size)
 }
 \arguments{
+\item{loop_ranges}{A 'LoopRanges' class object}
+
 \item{type}{Type of filtering when determining which loops to drop:
 \itemize{
- \item "Anchor Size" - Drops loops based on given anchor sizes as the option.
- \item 
-}}
-
-\item{...}{Options for filtering based on method type selected:
-\itemize{
- \item For method "Anchor Size" - a single integer or numerical vector of anchor sizes. 
- \item For method "Loop Size" 
+ \item "Anchor" - Drops loops based on given anchor sizes 
+ \item "Loop" - Drops loops based on end-to-end loop size
 }}
 }
 \description{
-Drops loops based on a type of filter and given options. Can be used to filter the loops in the 'LoopRanges' object before or after determining consensus.
+Drops loops based on a type of filter and given options. Can be used to filter the loops in the 'LoopRanges' object before or after determining consensus
 }

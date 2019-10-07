@@ -1,13 +1,13 @@
 #' Subset an object of class LoopRanges using consensus options
 #'
-#' Performs filtering on looping data in LoopRanges objects based on custom parameters and returns a single GRangesList object indicating one looping dataset with two anchors. 
+#' Performs filtering on looping data in LoopRanges objects based on custom parameters and returns a single GRangesList object indicating one looping dataset with two anchors
 #' @param loop_ranges An object of 'LoopRanges' class created from the LoopsToRanges() function
 #' @param stringency Integer (n>=0) indicating the number of looping datasets a loop from a given dataset must overlap with to be considered a consensus loop
-#' @param overlap_threshold Single numerical input in either percentage (0<=n<=1) overlap format if split_anchors = TRUE, or in base pair number format (n>=0) in split_anchors = FALSE (default)
+#' @param overlap_threshold Single numerical input in either percentage (0<=n<=1) overlap format if split_anchors = TRUE, or in base pair number format (n>=0) in split_anchors=FALSE (default)
 #' @param split_anchors A boolean (TRUE/FALSE) that determines if the different loop anchor sizes are considered together (Default=TRUE) or seperately (FALSE)
-#' @param resolutions An optional numerical vector of anchor sizes - to be used only when split_anchors=TRUE.
+#' @param resolutions An optional numerical vector of anchor sizes - to be used only when split_anchors=TRUE
 #' @param keep_all If TRUE, keeps all of the loops (concatenation of looping datasets)
-#' @return A single GRangesList object of the two anchors for the called consensus loops. 
+#' @return A 'LoopRanges' class object for the consensus loops  
 #' @export
 
 ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100, split_anchors = FALSE, resolutions = NULL, keep_all = FALSE) {
@@ -112,6 +112,6 @@ ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100,
   anchor_2_consensus <- combined_subset[[2]][dup_indices]
   consensus_loops <- GRangesList(anchor_1_consensus, anchor_2_consensus)
   names(consensus_loops) <- c("Anchor 1", "Anchor 2")
-  consensus_loops
+  return(structure(consensus_loops, class = "LoopRanges"))
   
 }

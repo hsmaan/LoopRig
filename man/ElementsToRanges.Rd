@@ -4,14 +4,19 @@
 \alias{ElementsToRanges}
 \title{Create a list of ranges objects from element data}
 \usage{
-ElementsToRanges(..., file_format, element_names = NULL)
+ElementsToRanges(..., file_format, element_names = NULL,
+  custom_cols = NULL, custom_mcols = NULL)
 }
 \arguments{
-\item{...}{Up to 10 tab delimited element data files in BED4 or BED12 format}
+\item{...}{Any number of tab delimited element data files in BED4 or BED12 format}
 
 \item{file_format}{The type of input element file - either 'BED4' or 'BED12' format}
 
 \item{element_names}{A character vector of names for the element datasets (optional)}
+
+\item{custom_cols}{An integer indicating the number of extra columns in the BED file. Overrides file_format (optional)}
+
+\item{custom_mcols}{An integer or vector of integers indicating which columns are used for metadata (optional)}
 }
 \value{
 A 'ElementRanges' class object: list of GRanges element data objects

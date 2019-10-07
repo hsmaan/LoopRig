@@ -1,11 +1,11 @@
 #' Create a list of ranges objects from looping data
 #' 
-#' Uses tab delimited looping data in the form of BEDPE files to create LoopList objects
+#' Uses tab delimited looping data in the form of BEDPE files to create custom GRanges loop objects
 #' @param ... Any number of tab delimited loop data files in BEDPE format 
 #' @param loop_names A character vector of names for the loop datasets (optional)
 #' @param custom_cols An integer indicating the number of extra columns in the BEDPE file (default = 0)
 #' @param custom_mcols An integer or vector of integers indicating which columns are used for metadata (optional)
-#' @return A 'LoopRanges' class object: list of GRanges looping data objects 
+#' @return A \emph{LoopRanges} class object: list of GRanges looping data objects 
 #' @export 
 
 LoopsToRanges <- function(..., loop_names = NULL, custom_cols = 0, custom_mcols = NULL) {
