@@ -12,17 +12,16 @@
 
 ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100, split_anchors = FALSE, resolutions = NULL, keep_all = FALSE) {
   
-  if (keep_all) {
-    
-    loop_ranges
-    
+  if (keep_all == TRUE) {
+
+    return(structure((Reduce(S4Vectors::pc, loop_ranges)), "LoopRanges"))
   }
 
   if (class(loop_ranges) != "LoopRanges") {
     stop("Please enter an object of class 'LoopRanges' for the loop_ranges parameter")
   }
   
-  if (!split_anchors) {
+  if (split_anchors == FALSE) {
     
     hit_counter <- function(looprange1, looprange2, threshold = overlap_threshold, type = "other") {
       anchor_1_hits <- findOverlaps(looprange1[[1]], looprange2[[1]], minoverlap = threshold)
@@ -49,7 +48,7 @@ ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100,
     }
   }
   
-  else if (split_anchors) {
+  else if (split_anchors == TRUE) {
     
     if (is.null(resolutions) == TRUE) {
       stop("Please enter the loop anchor resolutions in numerical vector format")

@@ -1,6 +1,6 @@
-#' A variety of options to drop loops from \emph{LoopRanges} objects
+#' Drop loops from \emph{LoopRanges} objects using anchor and loop sizes
 #'
-#' Drops loops based on a type of filter and given options. Can be used to filter the loops in the \emph{LoopRanges} object before or after determining consensus
+#' Subset loops based on loop and anchor size filters. Can be used to filter the loops in the \emph{LoopRanges} object before or after calling ConsensusLoops
 #' @param loop_ranges A \emph{LoopRanges} class object 
 #' @param type A string indicating the type of filtering when determining which loops to drop:
 #' \itemize{
@@ -43,7 +43,7 @@ DropLoops <- function(loop_ranges, type, size) {
     
     loop_dropper <- function(loop_range, loops) {
       
-      loop_subset <- which(IRanges::end((loop_range[[2]]) - IRanges::start(loop_range[[1]])) %in% seq(loops[1], loops[2]))
+      loop_subset <- which((IRanges::end(loop_range[[2]]) - IRanges::start(loop_range[[1]])) %in% seq(loops[1], loops[2]))
       anchor_1_subset <- loop_range[[1]][loop_subset]
       anchor_2_subset <- loop_range[[2]][loop_subset]
       subset_loop <- GRangesList("Anchor 1" = anchor_1_subset, "Anchor 2" = anchor_2_subset)

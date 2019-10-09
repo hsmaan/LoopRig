@@ -11,10 +11,22 @@
 
 ElementsToRanges <- function(..., file_format, element_names = NULL, custom_cols = NULL, custom_mcols = NULL) {
   
-  pre_list <- list(...)
+  pre_list <- tryCatch(
+    {
+      pre_list <- list(...)
+    },
+    
+    warning=function(warning_text) {
+      return(NA)
+    }
+  )
   
   if (length(pre_list) == 0) {
     stop("Please enter at least one BED4/12 element data file")
+  }
+  
+  if(length(unique(pre_list) != length(pre_list))) {
+    stop("Duplicate BED files entered, only unique entries allowed")
   }
   
   test_table <- tryCatch(

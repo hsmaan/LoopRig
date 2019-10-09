@@ -22,4 +22,17 @@ element_ranges
 
 ### DropLoops Tests ###
 
-drop_loop_ranges <- DropLoops(loop_ranges, "Anchor Size", c(0, 10000))
+drop_loop_ranges <- DropLoops(loop_ranges, "loop_size", c(300000, 1000000))
+
+drop_loop_ranges
+
+drop_loop_ranges <- DropLoops(loop_ranges, "loop_size", c(0))
+
+### ConsensusLoops Tests ###
+
+setwd("~/Documents/lncrna_loopnet_looptest/lncrna_loopnet_looptest/data/yue_looplists")
+
+loop_ranges <- LoopsToRanges("Rubin_2017.Epidermal_Keratinocyte_day0.hg19.peakachu-merged.loops", "Dixon_2015.H1-TRO.hg19.peakachu-merged.loops", "Schmitt_2016.Ovary.hg19.peakachu-merged.loops", "Schmitt_2016.Ovary.hg19.peakachu-merged.loops", custom_cols = 0, loop_names = c("test1", "test2", "test3"))
+
+consensus_loops <- ConsensusLoops(loop_ranges, keep_all = TRUE)
+# 

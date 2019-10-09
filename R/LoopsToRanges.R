@@ -10,10 +10,22 @@
 
 LoopsToRanges <- function(..., loop_names = NULL, custom_cols = 0, custom_mcols = NULL) {
   
-  pre_list <- list(...)
+  pre_list <- tryCatch(
+    {
+      pre_list <- list(...)
+    },
+    
+    warning=function(warning_text) {
+      return(NA)
+    }
+  )
   
   if (length(pre_list) == 0) {
     stop("Please enter at least one BEDPE looping data file")
+  }
+  
+  if(length(unique(pre_list) != length(pre_list))) {
+    stop("Duplicate BEDPE data-files entered, only unique entries allowed")
   }
   
   test_table <- tryCatch(
