@@ -2,7 +2,7 @@
 % Please edit documentation in R/DropLoops.R
 \name{DropLoops}
 \alias{DropLoops}
-\title{A variety of options to drop loops from \emph{LoopRanges} objects}
+\title{Drop loops from \emph{LoopRanges} objects using anchor and loop sizes}
 \usage{
 DropLoops(loop_ranges, type, size)
 }
@@ -21,5 +21,5 @@ DropLoops(loop_ranges, type, size)
 A subsetted \emph{LoopRanges} class object
 }
 \description{
-Drops loops based on a type of filter and given options. Can be used to filter the loops in the \emph{LoopRanges} object before or after determining consensus
+Subset loops based on loop and anchor size filters. Can be used to filter the loops in the \emph{LoopRanges} object before or after calling ConsensusLoops
 }

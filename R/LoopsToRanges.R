@@ -15,7 +15,7 @@ LoopsToRanges <- function(..., loop_names = NULL, custom_cols = 0, custom_mcols 
       pre_list <- list(...)
     },
     
-    warning=function(warning_text) {
+    warning = function(warning_text) {
       return(NA)
     }
   )
@@ -24,7 +24,7 @@ LoopsToRanges <- function(..., loop_names = NULL, custom_cols = 0, custom_mcols 
     stop("Please enter at least one BEDPE looping data file")
   }
   
-  if(length(unique(pre_list) != length(pre_list))) {
+  if(length(unique(pre_list)) != length(pre_list)) {
     stop("Duplicate BEDPE data-files entered, only unique entries allowed")
   }
   
