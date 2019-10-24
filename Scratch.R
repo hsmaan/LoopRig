@@ -2,15 +2,15 @@ library(LoopRig)
 
 ### LoopsToRanges Tests ###
 
-setwd("~/Documents/lncrna_loopnet_looptest/lncrna_loopnet_looptest/data/yue_looplists")
+ovary_loops <- system.file("extdata/loops", "ovary_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
+pancreas_loops <- system.file("extdata/loops", "pancreas_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
+spleen_loops <- system.file("extdata/loops", "spleen_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
 
-loop_ranges <- LoopsToRanges("Rubin_2017.Epidermal_Keratinocyte_day0.hg19.peakachu-merged.loops", "ENCODE3.LNCAP.hg19.peakachu-merged.loops", custom_cols = 0, loop_names = c("test1", "test2"))
+loop_ranges <- LoopsToRanges(ovary_loops, spleen_loops, custom_cols = 0, loop_names = c("test1", "test2"))
 
 loop_ranges
 
-setwd("~/Documents/lncrna_loopnet_looptest/lncrna_loopnet_looptest/data/rao_looplists/")
-
-loop_ranges <- LoopsToRanges("GSE63525_HeLa_HiCCUPS_looplist.txt", custom_cols = 14, loop_names = "test")
+loop_ranges <- LoopsToRanges("", custom_cols = 14, loop_names = "test")
 
 ### ElementsToRanges Tests ### 
 
