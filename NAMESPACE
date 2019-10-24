@@ -9,3 +9,8 @@ importFrom("S4Vectors", "queryHits")
 importFrom("S4Vectors", "subjectHits")
 importFrom("S4Vectors", "intersect.Vector")
 importFrom("S4Vectors", "pc")
+
+export("LoopsToRanges")
+export("ElementsToRanges")
+export("DropLoops")
+export("ConsensusLoops")
