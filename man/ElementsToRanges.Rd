@@ -12,7 +12,7 @@ ElementsToRanges(..., element_names = NULL, custom_cols = NULL,
 
 \item{element_names}{A character vector of names for the element datasets (optional)}
 
-\item{custom_cols}{An integer indicating the number of extra columns in the BED file. Overrides file_format (optional)}
+\item{custom_cols}{An integer indicating the number of extra columns in the BED file.}
 
 \item{custom_mcols}{An integer or vector of integers indicating which columns are used for metadata (optional)}
 }

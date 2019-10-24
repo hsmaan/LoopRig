@@ -9,6 +9,8 @@
 #'}
 #' @param size A numerical vector indicating size range to keep (e.g. c(start, end)) 
 #' @return A subsetted \emph{LoopRanges} class object 
+#' @import GenomicRanges
+#' @import IRanges
 #' @export  
 
 DropLoops <- function(loop_ranges, type, size) {

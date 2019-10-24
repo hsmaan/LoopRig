@@ -6,6 +6,9 @@
 #' @param custom_cols An integer indicating the number of extra columns in the BEDPE file (default = 0)
 #' @param custom_mcols An integer or vector of integers indicating which columns are used for metadata (optional)
 #' @return A \emph{LoopRanges} class object: list of GRanges looping data objects 
+#' @import GenomicRanges
+#' @import IRanges
+#' @importFrom utils read.table
 #' @export 
 
 LoopsToRanges <- function(..., loop_names = NULL, custom_cols = 0, custom_mcols = NULL) {

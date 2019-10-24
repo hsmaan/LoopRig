@@ -3,9 +3,12 @@
 #' Uses tab delimited element data in the form of BED4 or BED12 files to create GRanges element objects
 #' @param ... Any number of tab delimited element data files in BED4 or BED12 format  
 #' @param element_names A character vector of names for the element datasets (optional)
-#' @param custom_cols An integer indicating the number of extra columns in the BED file. Overrides file_format (optional) 
+#' @param custom_cols An integer indicating the number of extra columns in the BED file.
 #' @param custom_mcols An integer or vector of integers indicating which columns are used for metadata (optional) 
 #' @return An \emph{ElementRanges} class object: list of GRanges element data objects 
+#' @import GenomicRanges
+#' @import IRanges
+#' @importFrom utils read.table
 #' @export 
 
 ElementsToRanges <- function(..., element_names = NULL, custom_cols = NULL, custom_mcols = NULL) {
@@ -48,22 +51,13 @@ ElementsToRanges <- function(..., element_names = NULL, custom_cols = NULL, cust
   meta_classes <- c("character", "numeric", "numeric", "character")
   
   if (is.null(custom_cols) == TRUE) {
-    
-    if (file_format == "BED12") {
-      el_list <- structure(lapply(pre_list, read.table, colClasses = c(meta_classes,rep("character", 8)), header = FALSE), class = "ElementsList")
-    } 
-    else if (file_format == "BED4") {
-      el_list <- structure(lapply(pre_list, read.table, colClasses = c(meta_classes), header = FALSE), class = "ElementsList")
-    } 
-    else {
-      stop("Please enter an appropriate format for the element files (BED4/BED12)")
-    }
+    stop("Please enter an appropriate value for the custom_cols parameter")
   } 
   
   else {
     
     if (length(colnames(test_table)) != (4 + custom_cols)) {
-      stop("Incorrect number of columns, please check your files again")
+      stop("Incorrect number of custom columns, please check your files again")
     }
     
     el_list <- structure(lapply(pre_list, read.table, colClasses = c(meta_classes,rep("character", custom_cols)), header = FALSE), class = "ElementsList")

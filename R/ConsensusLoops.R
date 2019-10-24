@@ -7,7 +7,10 @@
 #' @param split_anchors A boolean (TRUE/FALSE) that determines if the different loop anchor sizes are considered together (Default=TRUE) or seperately (FALSE)
 #' @param resolutions An optional numerical vector of anchor sizes - to be used only when split_anchors=TRUE
 #' @param keep_all If TRUE, keeps all of the loops (concatenation of looping datasets)
-#' @return A 'LoopRanges' class object for the consensus loops  
+#' @return A 'LoopRanges' class object for the consensus loops 
+#' @import GenomicRanges
+#' @import IRanges
+#' @importFrom S4Vectors queryHits subjectHits intersect.Vector pc 
 #' @export
 
 ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100, split_anchors = FALSE, resolutions = NULL, keep_all = FALSE) {
@@ -17,7 +20,10 @@ ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100,
   }
   
   if (keep_all == TRUE) {
-    return(structure((Reduce(S4Vectors::pc, loop_ranges)), "LoopRanges"))
+    
+    consensus_loops <- Reduce(S4Vectors::pc, loop_ranges)
+    names(consensus_loops) <- c("Anchor 1", "Anchor 2")
+    return(structure(list("Consensus" = consensus_loops), class = "LoopRanges"))
   }
 
   if (class(loop_ranges) != "LoopRanges") {
@@ -114,6 +120,6 @@ ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100,
   anchor_2_consensus <- combined_subset[[2]][dup_indices]
   consensus_loops <- GRangesList(anchor_1_consensus, anchor_2_consensus)
   names(consensus_loops) <- c("Anchor 1", "Anchor 2")
-  return(structure(list("consensus" = consensus_loops), class = "LoopRanges"))
+  return(structure(list("Consensus" = consensus_loops), class = "LoopRanges"))
   
 }
