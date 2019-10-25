@@ -50,3 +50,21 @@ linked_elements <- LinkedElements(consensus_loops, element_ranges[[1]], element_
 linked_elements
 
 View(linked_elements)
+
+linked_elements <- LinkedElements(consensus_loops, element_ranges[[1]], element_ranges[[2]], range_out_x = TRUE)
+
+linked_elements[[1]]
+
+### StackedElements Tests ### 
+
+stacked_elements <- StackedElements(consensus_loops, element_ranges[[1]], element_ranges[[2]])
+
+View(stacked_elements)
+
+stacked_elements <- StackedElements(consensus_loops, element_ranges[[1]], element_ranges[[2]], range_out_x = TRUE)
+
+stacked_elements
+
+stacked_elements <- StackedElements(consensus_loops, element_ranges[[1]], element_ranges[[2]], range_out_y = TRUE)
+
+stacked_elements
