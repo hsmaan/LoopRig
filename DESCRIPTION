@@ -16,9 +16,9 @@ Imports:
 Suggests: 
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr
 LazyData: true
 License: GPL-3
 RoxygenNote: 6.1.1
-
