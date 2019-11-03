@@ -1,9 +1,12 @@
 comment: false
-language: R
-sudo: false
-cache: packages
-after_success:
-- Rscript -e 'covr::codecov()'
 
-codecov:
-  token: 71abc46b-c344-4457-ae80-5bb5672767d1
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
+    patch:
+      default:
+        target: auto
+        threshold: 1%
