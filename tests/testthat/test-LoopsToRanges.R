@@ -11,3 +11,4 @@ test_that("error handling", {
   expect_error(LoopsToRanges(ovary_loops, ovary_loops), "*Duplicate BEDPE data-files entered*")
   
 })
+

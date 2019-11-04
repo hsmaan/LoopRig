@@ -32,7 +32,7 @@ ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100,
   
   if (split_anchors == FALSE) {
     
-    hit_counter <- function(looprange1, looprange2, threshold = overlap_threshold, type = "other") {
+    hit_counter_1 <- function(looprange1, looprange2, threshold = overlap_threshold, type = "other") {
       anchor_1_hits <- findOverlaps(looprange1[[1]], looprange2[[1]], minoverlap = threshold)
       anchor_2_hits <- findOverlaps(looprange1[[2]], looprange2[[2]], minoverlap = threshold)
       consensus_hits <- intersect.Vector(anchor_1_hits, anchor_2_hits)
@@ -47,7 +47,7 @@ ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100,
       }
     }
     
-    total_counts <- lapply(loop_ranges, function(x) lapply(loop_ranges, function(y) hit_counter(x, y)))
+    total_counts <- lapply(loop_ranges, function(x) lapply(loop_ranges, function(y) hit_counter_1(x, y)))
     for (i in 1:length(loop_ranges)) { 
       total_counts[[i]][[i]] <- NULL 
     }
@@ -69,7 +69,7 @@ ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100,
     
     resolutions <- resolutions + 1
     
-    hit_counter <- function(loop_range1, loop_range2, threshold = overlap_threshold, type = "other", divisions = resolutions) {
+    hit_counter_2 <- function(loop_range1, loop_range2, threshold = overlap_threshold, type = "other", divisions = resolutions) {
       
       overlapper <- function(looprange1 = loop_range1, looprange2 = loop_range2, anchor, threshold = overlap_threshold, division) {
         range1_split <- looprange1[[anchor]][width(looprange1[[anchor]]) == division]
@@ -91,7 +91,7 @@ ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100,
       
     }
     
-    total_counts <- lapply(loop_ranges, function(x) lapply(loop_ranges, function(y) hit_counter(x, y)))
+    total_counts <- lapply(loop_ranges, function(x) lapply(loop_ranges, function(y) hit_counter_2(x, y)))
     for (i in 1:length(loop_ranges)) { 
       total_counts[[i]][[i]] <- NULL 
     }
