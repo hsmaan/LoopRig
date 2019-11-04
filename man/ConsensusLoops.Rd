@@ -14,7 +14,7 @@ ConsensusLoops(loop_ranges, stringency = 1, overlap_threshold = 100,
 
 \item{overlap_threshold}{Single numerical input in either percentage (0<=n<=1) overlap format if split_anchors = TRUE, or in base pair number format (n>=0) in split_anchors=FALSE (default)}
 
-\item{split_anchors}{A boolean (TRUE/FALSE) that determines if the different loop anchor sizes are considered together (Default=TRUE) or seperately (FALSE)}
+\item{split_anchors}{A boolean (TRUE/FALSE) that determines if the different loop anchor sizes are considered together (default=TRUE) or seperately (FALSE)}
 
 \item{resolutions}{An optional numerical vector of anchor sizes - to be used only when split_anchors=TRUE}
 

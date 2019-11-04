@@ -4,21 +4,25 @@
 \alias{LinkedElements}
 \title{Determines elements linked by loop anchors}
 \usage{
-LinkedElements(loop_ranges, element_ranges_1, element_ranges_2,
-  overlap_threshold = 1)
+LinkedElements(loop_ranges, element_ranges_x, element_ranges_y,
+  range_out_x = FALSE, range_out_y = FALSE, overlap_threshold = 1)
 }
 \arguments{
-\item{loop_ranges}{A single GRanges loop object in the form of GRangesList class. Should ideally be the consensus loops object created through ConsensusLoops().}
+\item{loop_ranges}{A single \emph{LoopRanges} object that has been subset to one range through ConsensusLoops().}
 
-\item{element_ranges_1}{The first element ranges to be considered. If using an 'ElementRanges' class object, subset by using list indexing.}
+\item{element_ranges_x}{A subset \emph{ElementRanges} class object. Subset appropriate ranges by using list indexing.}
 
-\item{element_ranges_2}{The second element ranges to be considered. If using an 'ElementRanges' class object, subset by using list indexing.}
+\item{element_ranges_y}{A subset \emph{ElementRanges} class object. Subset appropriate ranges by using list indexing.}
 
-\item{overlap_threshold}{Single numerical input for significant base-pair overlap to be considered 'overlapping'. Default is 1 base-pair.}
+\item{range_out_x}{A boolean indicating if the output should be a subset element ranges object for element_ranges_x instead of the default dataframe. (default = FALSE)}
+
+\item{range_out_y}{A boolean indicating if the output should be a subset element ranges object for element_ranges_y instead of the default dataframe. (default = FALSE)}
+
+\item{overlap_threshold}{Single numerical input for significant base-pair overlap to be considered 'overlapping'. Default is 1 bp.}
 }
 \value{
-Returns a dataframe indicating the unique element links present in the form of their first metadata columns. The first element ranges nodes are always under one column, and the second under the other.
+Returns a dataframe indicating the unique element links present in the form of their first metadata columns. The element_ranges_x are always under column 1, and element_ranges_y are always under column 2.
 }
 \description{
-Using a finalized loops object and two sets of elements, determines which elements are linked by loops through overlap of anchor regions
+Using a finalized \emph{LoopRanges} loops object and two sets of elements, determines which elements are linked by loops through overlap of anchor regions
 }
