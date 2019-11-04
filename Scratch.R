@@ -68,3 +68,5 @@ stacked_elements
 stacked_elements <- StackedElements(consensus_loops, element_ranges[[1]], element_ranges[[2]], range_out_y = TRUE)
 
 stacked_elements
+
+ExportBED(stacked_elements, 1, file = "test.bed")

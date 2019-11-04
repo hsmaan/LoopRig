@@ -2,14 +2,18 @@
 % Please edit documentation in R/ExportBED.R
 \name{ExportBED}
 \alias{ExportBED}
-\title{Export a LoopRanges or \emph{italics}ElementRanges object to a BED file}
+\title{Export a LoopRanges or \emph{italics}ElementRanges object to a BED/BEDPE file}
 \usage{
-ExportBED(obj, file)
+ExportBED(obj, index, mcol = FALSE, file_name)
 }
 \arguments{
 \item{obj}{An object of \emph{italics}LoopRanges or \emph{italics}ElementRanges class}
 
-\item{file}{A string indicating the name and save location of BED file}
+\item{index}{List index of LoopRanges or ElementRanges object to output}
+
+\item{mcol}{A boolean specifying whether the first mcol of the object are to be output (default=FALSE)}
+
+\item{file_name}{A string indicating the name and save location of the BED/BEDPE file}
 }
 \description{
 Uses ElementRanges objects to output to BED format, and LoopRanges objects to output to BEDPE format
