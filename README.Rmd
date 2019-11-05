@@ -1,0 +1,110 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%",
+  tidy.opts = list(width.cutoff = 80),
+  tidy = TRUE
+)
+```
+# LoopRig
+
+[![Build Status](https://travis-ci.com/hsmaan/LoopRig.svg?token=jBqxwnZzU1qwLZyzpxME&branch=master)](https://travis-ci.com/hsmaan/LoopRig)
+[![Codecov test coverage](https://codecov.io/gh/hsmaan/LoopKit/branch/master/graph/badge.svg)](https://codecov.io/gh/hsmaan/LoopKit?branch=master)
+
+## Overview
+
+LoopRig is an R package that aims to standardize complex coordinate-based workflows utilizing chromatin loop and genomic element data. 
+
+## Installation
+
+LoopRig can be installed directly from GitHub:
+``` r
+# install.packages("devtools")
+devtools::install_github("hsmaan/LoopRig")
+```
+## Usage
+
+### Creating S3 Element and Loop Objects
+
+LoopRig has two central S3 classes of objects - *LoopRanges* objects for storing loop data, and *ElementRanges* objects for storing element data. Each class comprises of lists of S4 *GRanges* objects from the GenomicRanges package. Multiple element and looping data can be stored into both object types using the `LoopstoRanges()` and `ElementsToRanges()` functions:
+
+```{r LoopsToRanges}
+library(LoopRig)
+
+# Load example files for chromatin loop data
+ovary_loops <- system.file("extdata/loops", "ovary_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
+pancreas_loops <- system.file("extdata/loops", "pancreas_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
+spleen_loops <- system.file("extdata/loops", "spleen_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
+
+# Call LoopsToRanges() on all files at once
+loop_ranges <- LoopsToRanges(ovary_loops, pancreas_loops, spleen_loops, custom_cols = 0, loop_names = c("ovary", "pancreas", "spleen"))
+
+# View LoopRanges object for first loop dataset (ovary)
+head(loop_ranges, 1)
+
+# Check LoopRanges class
+class(loop_ranges)
+```
+
+Each chromatin loop data set is stored as a *GRangesList* object within the *LoopRanges* object. Similarly for elements using `ElementsToRanges()`:
+
+```{r ElementsToRanges}
+# Load example files for genomic element data
+enhancers <- system.file("extdata/elements", "enhancers.bed", package = "LoopRig", mustWork = TRUE)
+promoters <- system.file("extdata/elements", "promoters.bed", package = "LoopRig", mustWork = TRUE)
+
+# Call ElementsToRanges() on all files at once
+element_ranges <- ElementsToRanges(enhancers, promoters, element_names = c("enhancers", "promoters"), custom_cols = 1, custom_mcols = 4)
+
+# View ElementRanges object for first element type (enhancers)
+head(element_ranges, 1)
+
+# Check ElementRanges class
+class(element_ranges)
+```
+
+Similar to *LoopRanges*, *ElementRanges* objects comprise of a list of *GRanges* objects storing genomic element coordinates. 
+
+### Determining a Consensus Set of Chromatin Loops
+
+There’s a wealth of publicly available chromatin loop data, and one of the most important challenges is extracting high-confidence interactions. The `ConsensusLoops()` function can be used on objects of *LoopRanges* class:
+
+```{r ConsensusLoops}
+# Call the ConsensusLoops() function. Stringency indicates how many datasets a loop must be present in to be considered a consensus loop, and the overlap threshold (base-pairs) defines a *hit* across datasets. 
+consensus_loops <- ConsensusLoops(loop_ranges, stringency = 2, overlap_threshold = 10)
+
+# View consensus_loops
+head(consensus_loops, 1)
+
+# Check class 
+class(consensus_loops)
+```
+
+The `ConsensusLoops()` function still returns an object of *LoopRanges* class, which can be used in many subsequent functions for analysis. 
+
+### Finding Element Linkage Mediated by Chromatin Loops
+
+LoopRig provides three functions for linking elements datasets based on chromatin loops: `LinkedElements()`, `StackedElements()`, and `ScaffoldElements()`. The most commonly used function will be `LinkedElements()`, as it considers which elements from two datasets are linked by chromatin loop anchors:
+
+```{r LinkedElements}
+# LinkedElements() will only take LoopRanges objects of length 1, as it is built for considering the results of a ConsensusLoops() call.
+
+# Two element datasets from ElementRanges objects can be used by indexing each one as a list
+
+# Call LinkedElements() for the promoter and enhancer ranges in element_ranges and use the default output parameters (dataframe)
+linked_elements <- LinkedElements(consensus_loops, element_ranges[[1]], element_ranges[[2]])
+
+# View resulting dataframe indicating linked promoters and enhancers
+linked_elements
+```
+
+Linkage functions can also return *ElementRanges* objects, subset based on the properties of the function. For example, `LinkedElements(..., range_out_x = TRUE)` will return an *ElementRanges* object for the subset of the first set of elements that are linked to the second set through loops. This allows for a continuous and dynamic workflow involving multiple subsetting steps. 
+
