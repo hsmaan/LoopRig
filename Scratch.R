@@ -15,9 +15,9 @@ loop_ranges <- LoopsToRanges(ovary_loops, ovary_loops, custom_cols = 14, loop_na
 ### ElementsToRanges Tests ### 
 
 enhancers <- system.file("extdata/elements", "enhancers.bed", package = "LoopRig", mustWork = TRUE)
-lncrnas <- system.file("extdata/elements", "lncrnas.bed", package = "LoopRig", mustWork = TRUE)
+promoters <- system.file("extdata/elements", "promoters.bed", package = "LoopRig", mustWork = TRUE)
 
-element_ranges <- ElementsToRanges(enhancers, lncrnas, element_names = c("enhancers", "lncrnas"), custom_cols = 8, custom_mcols = 4)
+element_ranges <- ElementsToRanges(enhancers, promoters, element_names = c("enhancers", "promoters"), custom_cols = 1, custom_mcols = 4)
 
 element_ranges
 
@@ -69,4 +69,18 @@ stacked_elements <- StackedElements(consensus_loops, element_ranges[[1]], elemen
 
 stacked_elements
 
-ExportBED(stacked_elements, 1, file = "test.bed")
+### ScaffoldElements Tests ### 
+
+scaffold_elements <- ScaffoldElements(consensus_loops, element_ranges[[1]], element_ranges[[2]])
+
+scaffold_elements <- ScaffoldElements(consensus_loops, element_ranges[[1]], element_ranges[[2]], range_out_x = TRUE)
+
+scaffold_elements
+
+scaffold_elements <- ScaffoldElements(consensus_loops, element_ranges[[1]], element_ranges[[2]], range_out_y = TRUE)
+
+scaffold_elements
+
+scaffold_elements <- ScaffoldElements(consensus_loops, element_ranges[[1]], element_ranges[[2]], range_out_x = TRUE, range_out_y = TRUE)
+
+

@@ -12,7 +12,6 @@
 #' @import IRanges
 #' @export
 
-
 StackedElements <- function(loop_ranges, element_ranges_x, element_ranges_y, range_out_x = FALSE, range_out_y = FALSE, overlap_threshold = 1) {
   
   if(class(loop_ranges) != "LoopRanges") {

@@ -1,8 +1,8 @@
 ---
-title: "looprig-tutorial"
+title: "LoopRig"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{looprig-tutorial}
+  %\VignetteIndexEntry{LoopRig}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

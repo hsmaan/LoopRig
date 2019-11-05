@@ -48,7 +48,7 @@ ElementsToRanges <- function(..., element_names = NULL, custom_cols = NULL, cust
     stop("Chromosome coordinates are not numeric. Please ensure file format accuracy and remove any header columns")
   }
   
-  meta_classes <- c("character", "numeric", "numeric", "character")
+  meta_classes <- c("character", "numeric", "numeric")
   
   if (is.null(custom_cols) == TRUE) {
     stop("Please enter an appropriate value for the custom_cols parameter")
@@ -56,7 +56,7 @@ ElementsToRanges <- function(..., element_names = NULL, custom_cols = NULL, cust
   
   else {
     
-    if (length(colnames(test_table)) != (4 + custom_cols)) {
+    if (length(colnames(test_table)) != (3 + custom_cols)) {
       stop("Incorrect number of custom columns, please check your files again")
     }
     
@@ -69,7 +69,7 @@ ElementsToRanges <- function(..., element_names = NULL, custom_cols = NULL, cust
     
     if (is.null(custom_mcols) == TRUE) {
       
-      element_ranges <- GRanges(seqnames = element_df[, 1], ranges = IRanges(start = element_df[, 2], end = element_df[, 3]), mcols = element_df[, 4])
+      element_ranges <- GRanges(seqnames = element_df[, 1], ranges = IRanges(start = element_df[, 2], end = element_df[, 3]))
       element_ranges
     } 
     
