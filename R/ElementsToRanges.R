@@ -41,7 +41,7 @@ ElementsToRanges <- function(..., element_names = NULL, custom_cols = NULL, cust
   )
   
   if (class(test_table) != "data.frame") {
-    stop("Error in reading BED file(s), please ensure file specification and format accuracy")
+    stop("Error in reading BED files, please ensure file specification and format accuracy")
   }
   
   if (length(which(sapply((test_table[1, c(2, 3)]), is.numeric))) < 2) {

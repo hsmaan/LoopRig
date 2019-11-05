@@ -41,12 +41,12 @@ LoopsToRanges <- function(..., loop_names = NULL, custom_cols = 0, custom_mcols 
     }
   )
   
-  if (length(colnames(test_table)) != (6 + custom_cols)) {
-    stop("Incorrect number of custom columns, please check your files again")
+  if (class(test_table) != "data.frame") {
+    stop("Error in reading BEDPE files, please ensure file specification, format, and location accuracy")
   }
   
-  if (class(test_table) != "data.frame") {
-    stop("Error in reading BEDPE file(s), please ensure file specification, format, and location accuracy")
+  if (length(colnames(test_table)) != (6 + custom_cols)) {
+    stop("Incorrect number of custom columns, please check your files again")
   }
   
   if (length(which(sapply((test_table[1, c(2, 3, 5, 6)]), is.numeric))) < 4) {

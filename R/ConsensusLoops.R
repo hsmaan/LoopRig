@@ -15,6 +15,10 @@
 
 ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100, split_anchors = FALSE, resolutions = NULL, keep_all = FALSE) {
   
+  if (class(loop_ranges) != "LoopRanges") {
+    stop("Please enter an object of class 'LoopRanges' for the loop_ranges parameter")
+  }
+  
   if (length(loop_ranges) < 2) {
     stop("Please enter a LoopRanges object with at least 2 loopsets")
   }
@@ -26,10 +30,6 @@ ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100,
     return(structure(list("Consensus" = consensus_loops), class = "LoopRanges"))
   }
 
-  if (class(loop_ranges) != "LoopRanges") {
-    stop("Please enter an object of class 'LoopRanges' for the loop_ranges parameter")
-  }
-  
   if (split_anchors == FALSE) {
     
     hit_counter_1 <- function(looprange1, looprange2, threshold = overlap_threshold, type = "other") {
@@ -64,7 +64,7 @@ ConsensusLoops <- function(loop_ranges, stringency = 1, overlap_threshold = 100,
     }
     
     if ((overlap_threshold < 0) || (overlap_threshold > 1)) {
-      stop("For split anchors, please enter a percentage overlap threshold between 0 and 1 (e.g. 0.2)")
+      stop("For split anchors, please enter a percentage overlap threshold between 0 and 1")
     }
     
     resolutions <- resolutions + 1

@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# LoopRig
+# LoopRig <img src="man/figures/looprig_logo.png" height="180px" align="right"/>
 
 [![Build
 Status](https://travis-ci.com/hsmaan/LoopRig.svg?token=jBqxwnZzU1qwLZyzpxME&branch=master)](https://travis-ci.com/hsmaan/LoopRig)
@@ -201,3 +201,8 @@ range_out_x = TRUE)` will return an *ElementRanges* object for the
 subset of the first set of elements that are linked to the second set
 through loops. This allows for a continuous and dynamic workflow
 involving multiple subsetting steps.
+
+## License
+
+[GNU General Public
+License 3.0](https://github.com/hsmaan/LoopRig/blob/master/LICENSE)
