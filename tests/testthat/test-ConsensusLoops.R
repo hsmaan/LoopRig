@@ -26,7 +26,21 @@ test_that("error handling", {
   
   expect_error(ConsensusLoops(loop_ranges = loops, split_anchors = "ABC"), "Please enter either 'TRUE' or 'FALSE' for the split_anchors parameter")
   
+})
+
+# Expected class output
+
+test_that("class output", {
   
+  expect_is(ConsensusLoops(loops, keep_all = TRUE), "LoopRanges")
+  
+  expect_is(ConsensusLoops(loops, stringency = 20), "LoopRanges")
+  
+  expect_is(ConsensusLoops(loops, overlap_threshold = 200), "LoopRanges")
+  
+  expect_is(ConsensusLoops(loops, split_anchors = TRUE, resolutions = c(1000, 10000), overlap_threshold = 0.5), "LoopRanges")
+  
+  expect_is(ConsensusLoops(loops, stringency = 5, split_anchors = TRUE, resolutions = c(1000, 10000), overlap_threshold = 0.5), "LoopRanges")
   
 })
 

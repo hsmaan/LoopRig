@@ -25,6 +25,8 @@ test_that("error handling", {
   
 })
 
+# Expected class output
+
 test_that("class output", {
   
   expect_is(ElementsToRanges(enhancers, promoters, custom_cols = 1, custom_mcols = 4), "ElementRanges")
