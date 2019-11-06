@@ -10,7 +10,6 @@ os:
   - osx
 jobs:
    allow_failures:
-      - os: osx
       - r: devel 
 sudo: false
 cache: packages
