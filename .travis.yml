@@ -8,7 +8,6 @@ r:
 os:
   - linux
   - osx
-  - windows
 sudo: false
 cache: packages
 
