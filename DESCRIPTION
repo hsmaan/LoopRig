@@ -20,5 +20,5 @@ Suggests:
     covr
 VignetteBuilder: knitr
 LazyData: true
-License: GPL-3
+License: GPL-3 | file LICENSE 
 RoxygenNote: 6.1.1

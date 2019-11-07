@@ -1,20 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+LoopRig <img src="man/figures/looprig_logo.png" height="180px" align="right"/>
+==============================================================================
 
-# LoopRig <img src="man/figures/looprig_logo.png" height="180px" align="right"/>
+[![Build Status](https://travis-ci.com/hsmaan/LoopRig.svg?token=jBqxwnZzU1qwLZyzpxME&branch=master)](https://travis-ci.com/hsmaan/LoopRig) [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/hsmaan/LoopRig?branch=master&svg=true)](https://ci.appveyor.com/project/hsmaan/LoopRig) [![codecov](https://codecov.io/gh/hsmaan/LoopRig/branch/master/graph/badge.svg)](https://codecov.io/gh/hsmaan/LoopRig)
 
-[![Build
-Status](https://travis-ci.com/hsmaan/LoopRig.svg?token=jBqxwnZzU1qwLZyzpxME&branch=master)](https://travis-ci.com/hsmaan/LoopRig)
-[![Codecov test
-coverage](https://codecov.io/gh/hsmaan/LoopKit/branch/master/graph/badge.svg)](https://codecov.io/gh/hsmaan/LoopKit?branch=master)
+Overview
+--------
 
-## Overview
+LoopRig is an R package that aims to standardize complex coordinate-based workflows utilizing chromatin loop and genomic element data.
 
-LoopRig is an R package that aims to standardize complex
-coordinate-based workflows utilizing chromatin loop and genomic element
-data.
-
-## Installation
+Installation
+------------
 
 LoopRig can be installed directly from GitHub:
 
@@ -23,16 +20,12 @@ LoopRig can be installed directly from GitHub:
 devtools::install_github("hsmaan/LoopRig")
 ```
 
-## Usage
+Usage
+-----
 
 ### Creating S3 Element and Loop Objects
 
-LoopRig has two central S3 classes of objects - *LoopRanges* objects for
-storing loop data, and *ElementRanges* objects for storing element data.
-Each class comprises of lists of S4 *GRanges* objects from the
-GenomicRanges package. Multiple element and looping data can be stored
-into both object types using the `LoopstoRanges()` and
-`ElementsToRanges()` functions:
+LoopRig has two central S3 classes of objects - *LoopRanges* objects for storing loop data, and *ElementRanges* objects for storing element data. Each class comprises of lists of S4 *GRanges* objects from the GenomicRanges package. Multiple element and looping data can be stored into both object types using the `LoopstoRanges()` and `ElementsToRanges()` functions:
 
 ``` r
 library(LoopRig)
@@ -79,9 +72,7 @@ class(loop_ranges)
 #> [1] "LoopRanges"
 ```
 
-Each chromatin loop data set is stored as a *GRangesList* object within
-the *LoopRanges* object. Similarly for elements using
-`ElementsToRanges()`:
+Each chromatin loop data set is stored as a *GRangesList* object within the *LoopRanges* object. Similarly for elements using `ElementsToRanges()`:
 
 ``` r
 # Load example files for genomic element data
@@ -119,16 +110,11 @@ class(element_ranges)
 #> [1] "ElementRanges"
 ```
 
-Similar to *LoopRanges*, *ElementRanges* objects comprise of a list of
-*GRanges* objects storing genomic element coordinates.
+Similar to *LoopRanges*, *ElementRanges* objects comprise of a list of *GRanges* objects storing genomic element coordinates.
 
 ### Determining a Consensus Set of Chromatin Loops
 
-There’s a wealth of publicly available chromatin loop data, and one of
-the most important challenges is extracting high-confidence
-interactions. The `ConsensusLoops()` function can be used on objects of
-*LoopRanges*
-class:
+There’s a wealth of publicly available chromatin loop data, and one of the most important challenges is extracting high-confidence interactions. The `ConsensusLoops()` function can be used on objects of *LoopRanges* class:
 
 ``` r
 # Call the ConsensusLoops() function. Stringency indicates how many datasets a
@@ -166,17 +152,11 @@ class(consensus_loops)
 #> [1] "LoopRanges"
 ```
 
-The `ConsensusLoops()` function still returns an object of *LoopRanges*
-class, which can be used in many subsequent functions for analysis.
+The `ConsensusLoops()` function still returns an object of *LoopRanges* class, which can be used in many subsequent functions for analysis.
 
 ### Finding Element Linkage Mediated by Chromatin Loops
 
-LoopRig provides three functions for linking elements datasets based on
-chromatin loops: `LinkedElements()`, `StackedElements()`, and
-`ScaffoldElements()`. The most commonly used function will be
-`LinkedElements()`, as it considers which elements from two datasets are
-linked by chromatin loop
-anchors:
+LoopRig provides three functions for linking elements datasets based on chromatin loops: `LinkedElements()`, `StackedElements()`, and `ScaffoldElements()`. The most commonly used function will be `LinkedElements()`, as it considers which elements from two datasets are linked by chromatin loop anchors:
 
 ``` r
 # LinkedElements() will only take LoopRanges objects of length 1, as it is built
@@ -195,14 +175,9 @@ linked_elements
 #> <0 rows> (or 0-length row.names)
 ```
 
-Linkage functions can also return *ElementRanges* objects, subset based
-on the properties of the function. For example, `LinkedElements(...,
-range_out_x = TRUE)` will return an *ElementRanges* object for the
-subset of the first set of elements that are linked to the second set
-through loops. This allows for a continuous and dynamic workflow
-involving multiple subsetting steps.
+Linkage functions can also return *ElementRanges* objects, subset based on the properties of the function. For example, `LinkedElements(..., range_out_x = TRUE)` will return an *ElementRanges* object for the subset of the first set of elements that are linked to the second set through loops. This allows for a continuous and dynamic workflow involving multiple subsetting steps.
 
-## License
+License
+-------
 
-[GNU General Public
-License 3.0](https://github.com/hsmaan/LoopRig/blob/master/LICENSE)
+[GNU General Public License 3.0](https://github.com/hsmaan/LoopRig/blob/master/LICENSE)

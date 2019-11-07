@@ -4,7 +4,7 @@
 \alias{DropLoops}
 \title{Drop loops from \emph{LoopRanges} objects using anchor and loop sizes}
 \usage{
-DropLoops(loop_ranges, type, size)
+DropLoops(loop_ranges, type = NULL, size = NULL)
 }
 \arguments{
 \item{loop_ranges}{A \emph{LoopRanges} class object}

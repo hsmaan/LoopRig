@@ -13,14 +13,14 @@
 #' @import IRanges
 #' @export  
 
-DropLoops <- function(loop_ranges, type, size) {
+DropLoops <- function(loop_ranges, type = NULL, size = NULL) {
   
   if (class(loop_ranges) != "LoopRanges") {
     stop("Please enter an object of LoopRanges class for the 'loop_ranges' parameter")
   }
   
   if (length(size) != 2) {
-    stop("Please enter a numerical vector for the 'size' paramter [e.g. c(5000, 10000)]")
+    stop("Please enter a numerical vector of two integers for the 'size' parameter")
   }
 
   if (type == "anchor_size") {

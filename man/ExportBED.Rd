@@ -4,7 +4,7 @@
 \alias{ExportBED}
 \title{Export a LoopRanges or \emph{italics}ElementRanges object to a BED/BEDPE file}
 \usage{
-ExportBED(obj, index, mcol = FALSE, file_name)
+ExportBED(obj, index = NULL, mcol = FALSE, file_name)
 }
 \arguments{
 \item{obj}{An object of \emph{italics}LoopRanges or \emph{italics}ElementRanges class}

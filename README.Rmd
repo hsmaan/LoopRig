@@ -18,7 +18,8 @@ knitr::opts_chunk$set(
 # LoopRig <img src="man/figures/looprig_logo.png" height="180px" align="right"/>
 
 [![Build Status](https://travis-ci.com/hsmaan/LoopRig.svg?token=jBqxwnZzU1qwLZyzpxME&branch=master)](https://travis-ci.com/hsmaan/LoopRig)
-[![Codecov test coverage](https://codecov.io/gh/hsmaan/LoopKit/branch/master/graph/badge.svg)](https://codecov.io/gh/hsmaan/LoopKit?branch=master)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/hsmaan/LoopRig?branch=master&svg=true)](https://ci.appveyor.com/project/hsmaan/LoopRig)
+[![codecov](https://codecov.io/gh/hsmaan/LoopRig/branch/master/graph/badge.svg)](https://codecov.io/gh/hsmaan/LoopRig)
 
 ## Overview
 
