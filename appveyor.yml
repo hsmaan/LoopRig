@@ -17,11 +17,11 @@ cache:
 
 environment:
   global:
-    USE_RTOOLS: true 
+    USE_RTOOLS: true
+    BIOC_USE_DEVEL: false 
   
 
 build_script:
-  - travis-tool.sh install_bioc BiocVersion BiocStyle
   - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_deps
 
