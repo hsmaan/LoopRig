@@ -21,6 +21,7 @@ environment:
     BIOC_USE_DEVEL: false 
     
 build_script:
+  - travis-tool.sh install_bioc BiocVersion BiocStyle
   - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_deps
 
@@ -49,6 +50,3 @@ artifacts:
 
   - path: '\*_*.zip'
     name: Bits
-
-allow_failures:
-  - platform: x86
