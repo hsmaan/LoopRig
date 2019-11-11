@@ -1,0 +1,199 @@
+---
+title: "LoopRig Tutorial: Enhancer-Promoter Interactions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{LoopRig-Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%",
+  tidy.opts = list(width.cutoff = 80),
+  tidy = TRUE
+)
+```
+
+## Background
+
+High-throughput interaction data from novel chromosome interaction assays has become a staple in genomics research. Methods such as high-throughput chromosome conformation capture (Hi-C) and chromatin interaction analysis by paired-end tag sequencing (ChIA-PET) provide researchers with a way of quantifying three-dimensional chromatin architecture, while also gaining insights into which regions in the genome are interacting frequently. A common downstream data-type from these experimental methods is chromatin loop data. Loops are inferred by marking regions in the genome with high frequency of interaction compared to a background. Typically, we are interested in loops because they provide an insulated environment for interaction of genomic regions, as well as a direct mode of contact for regions near the loop anchors. A classic canonical chromatin loop interaction is one that involves enhancer-promoter interactions in the regulation of gene expression. Therefore, a very common workflow involving chromatin loop data is the integration and concurrent analysis of genomic element data. 
+
+However, this poses two current challenges that are not readily solved by packages available in CRAN or Bioconductor:
+
+1. Genomic interaction data involves two sets of coordinates at the same time, and current widely used tools such as the GenomicRanges package do not have readily available functions to handle this data-type.
+
+2. Typical analysis workflows involving chromatin loop and genomic element data will incorporate multiple looping and element datasets at a time. This introduces another challenge for available software.
+
+LoopRig leverages the GenomicRanges and IRanges packages to standardize workflows utilizing chromatin loop and element data. This vignette covers all functional aspects of LoopRig by going over a workflow of a canonical mechanism of genomic interaction - enhancer <-> promoter interactions. 
+
+## Creating S3 Element and Loop Objects
+
+Tab-delimited element data files in BED3..n format and loop data files in BEDPE format are required, meaning that the data files cannot have headers. Element data files can have any numbers of extra metadata columns apart from the required 3 columns (chr, start, end). Similarly, BEDPE interaction files have no limit on their metadata columns but must contain the required 6 columns at a minimum (chr1, start1, end1, chr2, start2, end2). The number of extra columns must be specified when calling the `LoopsToRanges()` and `ElementsToRanges()` using the `custom_cols` parameter. Additionally, metadata from the BED files can be attached to the *GRanges* objects to be created by specifying which BED file columns to include using the `custom_mcols` parameter. The example files included with this package comprise of three looping datasets with no extra columns, and two element datasets with one extra column. 
+
+LoopRig has two central S3 classes of objects - *LoopRanges* objects for storing loop data, and *ElementRanges* objects for storing element data. Each class comprises of lists of S4 *GRanges* objects from the GenomicRanges package. Multiple element and looping data can be stored into both object types using the `LoopsToRanges()` and `ElementsToRanges()` functions. The following examples go over creating these data objects using example chromatin loop data of three datasets (ovary, pancreas, spleen) from Salameh et al. [1], and enhancer and promoter element data from the Pan-Cancer Analysis of Whole Genomes Consortium (PCAWG) [2]. *LoopRanges* objects can be created using `LoopsToRanges()`:
+
+```{r LoopsToRanges}
+library(LoopRig)
+
+# Load example files for chromatin loop data. These are BEDPE files with no extra columns.
+ovary_loops <- system.file("extdata/loops", "ovary_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
+pancreas_loops <- system.file("extdata/loops", "pancreas_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
+spleen_loops <- system.file("extdata/loops", "spleen_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
+
+# Call LoopsToRanges() on all files at once. Since there are custom columns, we indicate this by custom_cols = 0.
+loops <- LoopsToRanges(ovary_loops, pancreas_loops, spleen_loops, custom_cols = 0, loop_names = c("ovary", "pancreas", "spleen"))
+
+# View LoopRanges object for first loop dataset (ovary). 
+head(loops, 1)
+
+# We can see that each element in the LoopRanges list contains the loops from a given dataset, in this case the ovarian loops. 
+
+# We can confirm the class of our object by using the class() function.
+class(loops)
+```
+
+Each chromatin loop data set is stored as a *GRangesList* object within the *LoopRanges* object. Similarly for elements using `ElementsToRanges()`:
+
+```{r ElementsToRanges}
+# Load example files for genomic element data. These are BED4 files, indicating they have one extra column for metadata.
+enhancers <- system.file("extdata/elements", "enhancers.bed", package = "LoopRig", mustWork = TRUE)
+promoters <- system.file("extdata/elements", "promoters.bed", package = "LoopRig", mustWork = TRUE)
+
+# Call ElementsToRanges() on all files at once. We must specify that there is one extra column by custom_cols = 1. We want to use this column as metadata for our object, so we indicate this by custom_mcols = 4, meaning that the metadata columns for our ElementRanges object will be from column 4 of the original BED files.
+element_ranges <- ElementsToRanges(enhancers, promoters, element_names = c("enhancers", "promoters"), custom_cols = 1, custom_mcols = 4)
+
+# View ElementRanges object for first element type (enhancers).  
+head(element_ranges, 1)
+
+# As we can see, we have metadata for the GRanges object that stores element information.  
+
+# Confirm object class.
+class(element_ranges)
+```
+
+Similar to *LoopRanges*, *ElementRanges* objects comprise of a list of *GRanges* objects storing genomic element coordinates. These two objects can easily be subset, and users experienced in the GenomicRanges package can use the wealth of functions it provides. However, this is not advised unless there is a non-trivial analysis that must be performed which LoopRig does not address. 
+
+## Subsetting Loops and Determining Consensus Sets
+
+There’s a wealth of publicly available chromatin loop data, and one of the most important challenges is extracting high-confidence interactions. LoopRig provides a function, `ConsensusLoops()`, which can be used on objects of *LoopRanges* class. This function has a number of options and consensus can be determined using a variety of methods. The most basic methods comprises of determining which loops in one dataset overlap with those in the other dataset, and those that meet the `stringency` threshold parameter are considered consensus loops. Another metric central to `ConsensusLoops()` and most other functions in LoopRig is the `overlap_threshold` parameter, which defines how many nucleotide positions must be overlapping between two loci to constitute a 'hit'. In the case of `ConsensusLoops()`, this indicates the threshold for nucleotide overlap of both chromatin loop anchors for loops to be considered overlapping with others across datasets. To determine a set of consensus loops from our *LoopRanges* object created earlier, we can call `ConsensusLoops()` with minimal parameters:
+
+```{r ConsensusLoops}
+# Call the ConsensusLoops() function. Stringency indicates how many datasets a loop must be present in to be considered a consensus loop, and the overlap threshold (nucleotides) defines a *hit* across datasets. In this case, a loop must be present in at least 2 datasets based on overlap with another of 1 nucleotide.
+consensus_loops <- ConsensusLoops(loop_ranges = loops, stringency = 2, overlap_threshold = 1)
+
+# View consensus_loops. 
+head(consensus_loops, 1)
+
+# As we can see, we still have a LoopRanges object, but it only comprises of one GRangesList object containing the consensus loop data. We can double-check this using the length() function.
+length(loops)
+length(consensus_loops)
+
+# We can further check class to ensure LoopRanges object is intact.
+class(consensus_loops)
+```
+
+The `ConsensusLoops()` function still returns an object of *LoopRanges* class, which can be used in many subsequent functions for analysis. The length of this *LoopRanges* object is 1, as it now only contains one dataset comprising of subset loops based on consensus. 
+
+LoopRig also provides another function for manipulating loop data in *LoopRanges* form - `DropLoops()`. This function allows *LoopRanges* objects to be subset before or calling `ConsensusLoops()` (i.e. it can work with *LoopRanges* objects of any length except 0). Loops can be subset based on anchor size or total loop size, which is specified using the `type` parameter. We can consider an example of subsetting our consensus loops object for loop sizes that are between 100-200 Kb:
+
+```{r DropLoops}
+# Call DropLoops() and indicate the 'type' parameter to subset loops by loop size and use the 'size' parameter to specify lengths to keep (0-10 Kb).
+consensus_loops_dropped <- DropLoops(loop_ranges = consensus_loops, type = "loop_size", size = c(100000, 200000))
+
+# We can view the change by determining how many loops are in each object. The first index must be specified because we are still using LoopRanges list objects, and we must index an anchor to determine a count.
+length(consensus_loops[[1]][[1]])
+length(consensus_loops_dropped[[1]][[1]])
+
+# Our total number of loops reduced from 68 to 41, and these 41 loops all have total loop sizes (anchor end-to-end) between 100-200 Kb.  
+
+# Recheck class of subset object.
+class(consensus_loops_dropped)
+```
+
+Similar to `ConsensusLoops()`, `DropLoops()` returns object of *LoopRanges* class, which can be subset repeatedly using these two functions as much as necessary.  
+
+## Finding Element Linkage Mediated by Chromatin Loops
+
+LoopRig provides three functions for linking elements datasets based on chromatin loops: `LinkedElements()`, `StackedElements()`, and `ScaffoldElements()`. Each of these functions links elements based on chromatin loop overlap in different ways, but they all share the same parameters: input of a *LoopRanges* object of length 1 for the `loop_ranges` parameter (i.e. must be subset or have `ConsensusLoops()` called on it), input of two *GRanges* element objects for the `element_ranges_x` and `element_ranges_y` parameters (subset *ElementRanges* object using list indexing), an `overlap_threshold` parameter to determine degree of nucleotide overlap that counts as a hit, and `range_out_x` and `range_out_y` parameters which can be used to override the default dataframe outputs and instead output the subset elements as *ElementRanges* objects.
+
+### 1. Anchor-Anchor Linkage Using `LinkedElements()`
+
+The `LinkedElements()` function considers which elements from two datasets are linked by chromatin loop anchors. Based on input chromatin loops, if an element from one set coincides with a loop anchor and an element from the other set coincides with the opposite loop anchor, those two elements are considered linked. We can determine if any if our enhancers and promoters are linked in this manner using the consensus set of chromatin loops:
+
+```{r LinkedElements}
+# Call LinkedElements() for the promoter and enhancer ranges in element_ranges and use the default output parameters (dataframe). We must subset the ElementRanges object we created initially, as it has both the enhancer (index 1) and promoter (index 2) data in one object. 
+linked_elements <- LinkedElements(loop_ranges = consensus_loops, element_ranges_x = element_ranges[[1]], element_ranges_y = element_ranges[[2]])
+
+linked_elements
+
+# Using our consensus set of loops, enhancer data, and promoter data, we find that the only linked elements are Enhancer 3762 and the promoter corresponding to the KSR1 gene. 
+
+# We can do the exact same analysis, but this time output the promoters subset by this linkage instead of the dataframe indicating the links (i.e. the range corresponding to the KSR1 promoter).
+linked_elements_promoters <- LinkedElements(loop_ranges = consensus_loops, element_ranges_x = element_ranges[[1]], element_ranges_y = element_ranges[[2]], range_out_y = TRUE)
+
+linked_elements_promoters
+
+class(linked_elements_promoters)
+
+# As we can see, the output this time is an ElementRanges object containing the promoter data. 
+```
+
+### 2. Determining Elements Coinciding on Loop Anchors Using `StackedElements()` 
+
+The `StackedElements()` function determines which elements are both overlapping with each other and with a chromatin loop anchor. Therefore, it considers which elements are 'stacked' on top of loop anchors. Using our enhancer and promoter element data and the consensus set of loops determined previously, we can determine if any of these elements are stacked on loop anchors:
+
+```{r StackedElements}
+# Call StackedElements() for the promoter and enhancer data by subsetting the element_ranges object and using the consensus_loops object for the looping data. The default output will be a dataframe object.
+stacked_elements <- StackedElements(loop_ranges = consensus_loops, element_ranges_x = element_ranges[[1]], element_ranges_y = element_ranges[[2]])
+
+stacked_elements
+
+# From here, we can see that we have three instances of stacked promoters and enhancers on our consensus loop anchors. 
+
+# We can output which enhancers correspond to these stacks by using the range_out_x parameter. This will output these enhancers as an ElementRanges object.
+stacked_elements_enhancers <- StackedElements(loop_ranges = consensus_loops, element_ranges_x = element_ranges[[1]], element_ranges_y = element_ranges[[2]], range_out_x = TRUE)
+
+stacked_elements_enhancers
+
+class(stacked_elements_enhancers)
+```
+
+### 3. Finding Scaffolded Loop Connections Using `ScaffoldElements()` 
+
+The least intuitive of the linkage functions is `ScaffoldElements()`. This function aims to determine a subset of the input loops which have anchors overlapping with the first element set (`element_ranges_x`), and then determines which elements in the second set (`element_ranges_y`) overlap with those subset loops. The 'links' that are returned indicate the loop number, element from the first set that 'scaffolds' that loop, and element in the second set that overlaps with that loop. This analysis is particularly useful when considering elements that may stabilize loops, such as CTCF sites. For demonstration purposes, we will consider our enhancers to be the scaffolds and determine which promoters are linked to the scaffolded loops using our consensus loop set:
+
+```{r ScaffoldElemenets}
+# Call ScaffoldElements() for the promoter and enhancer data using indexing and use the consensus_loops object for the loop data. Use default options so the output is a dataframe object.
+scaffold_elements <- ScaffoldElements(loop_ranges = consensus_loops, element_ranges_x = element_ranges[[1]], element_ranges_y = element_ranges[[2]])
+
+scaffold_elements
+
+# Similar to LinkedElements() and StackedElements(), we can output either the linked enhancers or promoters as ElementRanges objects. 
+
+# Let's output the promoters using the range_out_y parameter.
+scaffold_elements_promoters <- ScaffoldElements(loop_ranges = consensus_loops, element_ranges_x = element_ranges[[1]], element_ranges_y = element_ranges[[2]], range_out_y = TRUE)
+
+scaffold_elements_promoters
+
+class(scaffold_elements_promoters)
+```
+
+## Exporting Element and Loop Data
+
+Once all relevant analysis has been done, *LoopRanges* and *ElementRanges* objects can be exported into BEDPE and BED files respectively using the `ExportBED()` function. The index of the object must be specified using the `index` parameter, and the first metadata column of the object can be optionally appended to the exported BED file by indicating `mcol = TRUE`. For example, we can export our promoters linked to enhancers determined by the `LinkedElements()` function:
+
+```{r ExportBED, eval = FALSE}
+# Call ExportBED() for the linked_elements_promoters objects. Specify element index, file name/location, and indicate mcol=TRUE to save object metadata with the BED file.
+
+# NOT RUN
+ExportBED(obj = linked_elements_promoters, index = 1, mcol = TRUE, file_name = "promoter_linked_enhancers.bed")
+```
+
+## References
+
+1. Salameh TJ, Wang X, Song F, Zhang B, Wright SM. A supervised learning framework for chromatin loop detection in genome-wide contact maps. bioRxiv. 2019;1–25. 
+
+2. Rheinbay E, Nielsen MM, Abascal F, Tiao G, Hornshøj H, Hess JM, et al. Discovery and characterization of coding and non-coding driver mutations in more than 2,500 whole cancer genomes. bioRxiv 2017;237313.

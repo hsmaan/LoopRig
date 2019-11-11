@@ -50,13 +50,13 @@ ScaffoldElements <- function(loop_ranges, element_ranges_x, element_ranges_y, ra
   
   if(range_out_x == TRUE) {
     
-    range_x_subset <- element_ranges_x[which(mcols(element_ranges_x)[,1] %in% joined_df[,2])]
+    range_x_subset <- unique(element_ranges_x[which(mcols(element_ranges_x)[,1] %in% joined_df[,2])])
     return(structure(list("el_x_scaffold" = range_x_subset), class = "ElementRanges"))
   }
   
   if (range_out_y == TRUE) {
     
-    range_y_subset <- element_ranges_y[which(mcols(element_ranges_y)[,1] %in% joined_df[,3])]
+    range_y_subset <- unique(element_ranges_y[which(mcols(element_ranges_y)[,1] %in% joined_df[,3])])
     return(structure(list("el_y_scaffold_linked" = range_y_subset), class = "ElementRanges"))
   }
   

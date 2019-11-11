@@ -34,13 +34,13 @@ StackedElements <- function(loop_ranges, element_ranges_x, element_ranges_y, ran
   
   if(range_out_x == TRUE) {
     
-    range_x_subset <- element_ranges_x[hits_merge[[2]]]
+    range_x_subset <- unique(element_ranges_x[hits_merge[[2]]])
     return(structure(list("el_x_stacked" = range_x_subset), class = "ElementRanges"))
   }
   
   if (range_out_y == TRUE) {
     
-    range_y_subset <- element_ranges_y[hits_merge[[3]]]
+    range_y_subset <- unique(element_ranges_y[hits_merge[[3]]])
     return(structure(list("el_y_stacked" = range_y_subset), class = "ElementRanges"))
   }
   

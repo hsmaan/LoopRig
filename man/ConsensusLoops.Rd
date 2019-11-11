@@ -4,7 +4,7 @@
 \alias{ConsensusLoops}
 \title{Subset an object of class LoopRanges using consensus options}
 \usage{
-ConsensusLoops(loop_ranges, stringency = 1, overlap_threshold = 100,
+ConsensusLoops(loop_ranges, stringency = 1, overlap_threshold = 1,
   split_anchors = FALSE, resolutions = NULL, keep_all = FALSE)
 }
 \arguments{
@@ -12,7 +12,7 @@ ConsensusLoops(loop_ranges, stringency = 1, overlap_threshold = 100,
 
 \item{stringency}{Integer (n>=0) indicating the number of looping datasets a loop from a given dataset must overlap with to be considered a consensus loop}
 
-\item{overlap_threshold}{Single numerical input in either percentage (0<=n<=1) overlap format if split_anchors = TRUE, or in base pair number format (n>=0) in split_anchors=FALSE (default)}
+\item{overlap_threshold}{Single numerical input in either percentage (0<=n<=1) overlap format if split_anchors = TRUE, or in base pair number format (n>=0) in split_anchors=FALSE (default=1)}
 
 \item{split_anchors}{A boolean (TRUE/FALSE) that determines if the different loop anchor sizes are considered together (default=TRUE) or seperately (FALSE)}
 

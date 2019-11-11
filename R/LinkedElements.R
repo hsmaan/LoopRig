@@ -39,14 +39,14 @@ LinkedElements <- function(loop_ranges, element_ranges_x, element_ranges_y, rang
   if(range_out_x == TRUE) {
 
     range_x_hits <- unique(c(hits_merge_1[[2]], hits_merge_2[[2]]))
-    range_x_subset <- element_ranges_x[range_x_hits]
+    range_x_subset <- unique(element_ranges_x[range_x_hits])
     return(structure(list("el_x_linked" = range_x_subset), class = "ElementRanges"))
   }
   
   if (range_out_y == TRUE) {
     
     range_y_hits <- unique(c(hits_merge_1[[3]], hits_merge_2[[3]]))
-    range_y_subset <- element_ranges_y[range_y_hits]
+    range_y_subset <- unique(element_ranges_y[range_y_hits])
     return(structure(list("el_y_linked" = range_y_subset), class = "ElementRanges"))
   }
   
