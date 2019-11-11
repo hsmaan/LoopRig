@@ -18,8 +18,6 @@ cache:
 environment:
   global:
     USE_RTOOLS: true
-    BIOC_USE_DEVEL: false 
-  
 
 build_script:
   - travis-tool.sh install_bioc_deps
@@ -50,3 +48,7 @@ artifacts:
 
   - path: '\*_*.zip'
     name: Bits
+    
+matrix:
+  allow_failures:
+    - platform: x86
