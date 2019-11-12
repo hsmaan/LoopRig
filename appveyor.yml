@@ -17,12 +17,13 @@ cache:
 
 environment:
   global:
-    USE_RTOOLS: TRUE
+    USE_RTOOLS: true
     BIOC_USE_DEVEL: FALSE 
     WARNINGS_ARE_ERRORS: 
 
 build_script:
   - travis-tool.sh install_bioc_deps
+  - travis-tool.sh bioc_install GenomeInfoDbData
   - travis-tool.sh install_deps
 
 test_script:
