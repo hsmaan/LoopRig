@@ -40,7 +40,8 @@ browseVignettes("LoopRig")
 vignette("LoopRig-Tutorial")
 ```
 
-Complete package documentation is available at \[\]
+Complete package documentation available
+[here](https://hsmaan.github.io/LoopRig/)
 
 ## License
 
