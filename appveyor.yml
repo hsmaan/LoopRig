@@ -17,9 +17,9 @@ cache:
 
 environment:
   global:
-    USE_RTOOLS: true
+    USE_RTOOLS: TRUE
     R_COMPILE_AND_INSTALL_PACKAGES: always
-    BIOC_USE_DEVEL: false 
+    BIOC_USE_DEVEL: FALSE 
 
 build_script:
   - travis-tool.sh github_package r-lib/remotes 
