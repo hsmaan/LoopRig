@@ -25,7 +25,7 @@ ExportBED <- function(obj, index = NULL, mcol = FALSE, file_name) {
     
     if (mcol == TRUE) {
       
-      if(ncol(mcols(obj[[index]])) == 0){
+      if(ncol(mcols(obj[[index]][[1]])) == 0){
         stop("Object has no mcols, please choose mcol = FALSE")
       }
       

@@ -67,7 +67,7 @@ LoopsToRanges <- function(..., loop_names = NULL, custom_cols = 0, custom_mcols 
   
     else {
       
-      if (!(custom_mcols %in% c(7:(7+custom_cols))) == TRUE) {
+      if (!(custom_mcols %in% c(6:(6+custom_cols))) == TRUE) {
         stop("Incorrect custom mcols location, please check your files again")
       }
       
