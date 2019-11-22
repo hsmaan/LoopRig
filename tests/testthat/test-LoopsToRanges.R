@@ -3,6 +3,7 @@ library(LoopRig)
 # Load files
 
 ovary_loops <- system.file("extdata/loops", "ovary_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
+ovary_loops_mcols <- system.file("extdata/loops", "ovary_hg19_mcol.bedpe", package = "LoopRig", mustWork = TRUE)
 pancreas_loops <- system.file("extdata/loops", "pancreas_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
 spleen_loops <- system.file("extdata/loops", "spleen_hg19.bedpe", package = "LoopRig", mustWork = TRUE)
 
@@ -29,6 +30,8 @@ test_that("error handling", {
 test_that("class output", {
   
   expect_is(LoopsToRanges(ovary_loops, spleen_loops, custom_cols = 0), "LoopRanges")
+  expect_is(LoopsToRanges(ovary_loops_mcols, custom_cols = 1, custom_mcols = 7), "LoopRanges")
+  expect_is(LoopsToRanges(ovary_loops_mcols, custom_cols = 1, custom_mcols = 7, loop_names = "ovary_mcols"), "LoopRanges")
   
 })
 
