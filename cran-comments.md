@@ -1,3 +1,11 @@
+## Resubmission
+
+This is a resubmission. In this version I have:
+
+* Removed "This package" from the package description field
+* Omitted redundant text from the title
+* Fleshed out the description to include information about the methods and functionality 
+
 ## Test environments 
 
 * ubuntu 18.04 (local), R 3.6.1

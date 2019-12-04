@@ -1,12 +1,12 @@
 Package: LoopRig
-Title: A Toolkit for the Integration and Analysis of Chromatin Loop Data
+Title: Integration and Analysis of Chromatin Loop Data
 Version: 0.1.1
 Date: 2019-12-04
 Authors@R: person("Hassaan Maan", role = c("aut", "cre"),
                      email = "hurmaan99@gmail.com") 
 Author: Hassaan Maan [aut, cre]
 Maintainer: Hassaan Maan <hurmaan99@gmail.com>
-Description: Methods to address the gap in available R tools for integration of multiple chromatin loop and genomic element datasets. Common coordinate-based workflows involving these datasets are considered and packaged into appropriate customizable functions. 
+Description: Common coordinate-based workflows involving processed chromatin loop and genomic element data are considered and packaged into appropriate customizable functions. Includes methods for linking element sets via chromatin loops and creating consensus loop datasets. 
 Depends:
     R (>= 3.4.0)
 biocViews:	
