@@ -160,7 +160,7 @@
 <span class='no'>tempdir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()
 
 <span class='co'># Export enhancers into temporary directory </span>
-<span class='fu'>ExportBED</span>(<span class='no'>element_ranges</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>tempdir</span>, <span class='st'>"promoters_ex.bed"</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"/"</span>))</div><div class='output co'>#&gt; [1] "BED file exported to /tmp/Rtmp55oFxf/promoters_ex.bed"</div><div class='input'>
+<span class='fu'>ExportBED</span>(<span class='no'>element_ranges</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>tempdir</span>, <span class='st'>"promoters_ex.bed"</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"/"</span>))</div><div class='output co'>#&gt; [1] "BED file exported to /tmp/RtmpJUqHsg/promoters_ex.bed"</div><div class='input'>
 <span class='co'># Load loops into LoopRanges object </span>
 <span class='no'>ovary_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/loops"</span>, <span class='st'>"ovary_hg19.bedpe"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
@@ -171,7 +171,7 @@
 <span class='no'>loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='LoopsToRanges.html'>LoopsToRanges</a></span>(<span class='no'>ovary_loops</span>, <span class='no'>spleen_loops</span>, <span class='no'>pancreas_loops</span>, <span class='kw'>custom_cols</span> <span class='kw'>=</span> <span class='fl'>0</span>)
 
 <span class='co'># Export ovary loops into temporary directory </span>
-<span class='fu'>ExportBED</span>(<span class='no'>loops</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>tempdir</span>, <span class='st'>"ovary_loops_ex.bed"</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"/"</span>))</div><div class='output co'>#&gt; [1] "BEDPE file exported to /tmp/Rtmp55oFxf/ovary_loops_ex.bed"</div></pre>
+<span class='fu'>ExportBED</span>(<span class='no'>loops</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>tempdir</span>, <span class='st'>"ovary_loops_ex.bed"</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"/"</span>))</div><div class='output co'>#&gt; [1] "BEDPE file exported to /tmp/RtmpJUqHsg/ovary_loops_ex.bed"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
