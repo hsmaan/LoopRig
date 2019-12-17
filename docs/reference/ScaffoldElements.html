@@ -66,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">LoopRig</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -92,6 +92,9 @@
       <a href="../articles/LoopRig-Tutorial.html">LoopRig Tutorial: Enhancer-Promoter Interactions</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -158,6 +161,27 @@
     <p>Returns a dataframe indicating scaffold linked elements in the form of their first metadata columns and the loop IDs for their scaffolds. The element_ranges_x (scaffold) are always under column 1, and element_ranges_y (links) are always under column 2.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Load enhancer and promoter elements into an ElementRanges object</span>
+<span class='no'>enhancers</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/elements"</span>, <span class='st'>"enhancers.bed"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>promoters</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/elements"</span>, <span class='st'>"promoters.bed"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>element_ranges</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ElementsToRanges.html'>ElementsToRanges</a></span>(<span class='no'>enhancers</span>, <span class='no'>promoters</span>,
+<span class='kw'>element_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"enhancers"</span>, <span class='st'>"promoters"</span>),
+<span class='kw'>custom_cols</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>custom_mcols</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+
+<span class='co'># Load loops into LoopRanges object and determine consensus loops</span>
+<span class='no'>ovary_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/loops"</span>, <span class='st'>"ovary_hg19.bedpe"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>pancreas_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/loops"</span>, <span class='st'>"pancreas_hg19.bedpe"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='LoopsToRanges.html'>LoopsToRanges</a></span>(<span class='no'>ovary_loops</span>, <span class='no'>pancreas_loops</span>, <span class='kw'>custom_cols</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='no'>consensus_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ConsensusLoops.html'>ConsensusLoops</a></span>(<span class='no'>loops</span>)
+
+<span class='co'># Based on consensus loops, determine which loops are anchored by enhancers and which </span>
+<span class='co'># promoters are overlapping with these loops</span>
+<span class='fu'>ScaffoldElements</span>(<span class='no'>consensus_loops</span>, <span class='no'>element_ranges</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>element_ranges</span><span class='kw'>[[</span><span class='fl'>2</span>]])</div><div class='output co'>#&gt;   Element_1_Scaffold Element_2_Link
+#&gt; 1              E5878           TGM2
+#&gt; 2              E2564        RAPGEF4</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -165,7 +189,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

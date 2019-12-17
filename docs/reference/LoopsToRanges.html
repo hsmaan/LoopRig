@@ -66,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">LoopRig</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -92,6 +92,9 @@
       <a href="../articles/LoopRig-Tutorial.html">LoopRig Tutorial: Enhancer-Promoter Interactions</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -150,6 +153,60 @@
     <p>A <em>LoopRanges</em> class object: list of GRanges looping data objects</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Load loops into LoopRanges object </span>
+<span class='no'>ovary_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/loops"</span>, <span class='st'>"ovary_hg19.bedpe"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>spleen_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/loops"</span>, <span class='st'>"spleen_hg19.bedpe"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>LoopsToRanges</span>(<span class='no'>ovary_loops</span>, <span class='no'>spleen_loops</span>, <span class='kw'>custom_cols</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; GRangesList object of length 2:
+#&gt; $Anchor 1 
+#&gt; GRanges object with 5648 ranges and 0 metadata columns:
+#&gt;          seqnames              ranges strand
+#&gt;             &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;
+#&gt;      [1]     chr5   14140109-14150109      *
+#&gt;      [2]     chr5   29850107-29860107      *
+#&gt;      [3]     chr5 158137008-158147008      *
+#&gt;      [4]     chr5 158197008-158207008      *
+#&gt;      [5]     chr5 158167008-158177008      *
+#&gt;      ...      ...                 ...    ...
+#&gt;   [5644]     chr4   78621154-78631154      *
+#&gt;   [5645]     chr4   33601622-33611622      *
+#&gt;   [5646]     chr4   41452017-41462017      *
+#&gt;   [5647]     chr4   99321151-99331151      *
+#&gt;   [5648]     chr4 169501151-169511151      *
+#&gt; 
+#&gt; ...
+#&gt; &lt;1 more element&gt;
+#&gt; -------
+#&gt; seqinfo: 23 sequences from an unspecified genome; no seqlengths
+#&gt; 
+#&gt; [[2]]
+#&gt; GRangesList object of length 2:
+#&gt; $Anchor 1 
+#&gt; GRanges object with 13763 ranges and 0 metadata columns:
+#&gt;           seqnames              ranges strand
+#&gt;              &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;
+#&gt;       [1]     chr5 142009565-142019565      *
+#&gt;       [2]     chr5 159437007-159447007      *
+#&gt;       [3]     chr5 159507007-159517007      *
+#&gt;       [4]     chr5 159517007-159527007      *
+#&gt;       [5]     chr5   95185704-95195704      *
+#&gt;       ...      ...                 ...    ...
+#&gt;   [13759]     chr4   38361621-38371621      *
+#&gt;   [13760]     chr4 103551157-103561157      *
+#&gt;   [13761]     chr4 103591157-103601157      *
+#&gt;   [13762]     chr4 140791154-140801154      *
+#&gt;   [13763]     chr4 103521157-103531157      *
+#&gt; 
+#&gt; ...
+#&gt; &lt;1 more element&gt;
+#&gt; -------
+#&gt; seqinfo: 23 sequences from an unspecified genome; no seqlengths
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "LoopRanges"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -157,7 +214,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

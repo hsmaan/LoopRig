@@ -66,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">LoopRig</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -92,6 +92,9 @@
       <a href="../articles/LoopRig-Tutorial.html">LoopRig Tutorial: Enhancer-Promoter Interactions</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -158,6 +161,59 @@
     <p>Returns a dataframe indicating the unique element links present in the form of their first metadata columns. The element_ranges_x are always under column 1, and element_ranges_y are always under column 2.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Load enhancer and promoter elements into an ElementRanges object</span>
+<span class='no'>enhancers</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/elements"</span>, <span class='st'>"enhancers.bed"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>promoters</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/elements"</span>, <span class='st'>"promoters.bed"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>element_ranges</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ElementsToRanges.html'>ElementsToRanges</a></span>(<span class='no'>enhancers</span>, <span class='no'>promoters</span>,
+<span class='kw'>element_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"enhancers"</span>, <span class='st'>"promoters"</span>),
+<span class='kw'>custom_cols</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>custom_mcols</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+
+<span class='co'># Load loops into LoopRanges object and determine consensus loops (keep all)</span>
+<span class='no'>ovary_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/loops"</span>, <span class='st'>"ovary_hg19.bedpe"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>pancreas_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/loops"</span>, <span class='st'>"pancreas_hg19.bedpe"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='LoopsToRanges.html'>LoopsToRanges</a></span>(<span class='no'>ovary_loops</span>, <span class='no'>pancreas_loops</span>, <span class='kw'>custom_cols</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='no'>consensus_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ConsensusLoops.html'>ConsensusLoops</a></span>(<span class='no'>loops</span>, <span class='kw'>keep_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='co'># Based on consensus loops, determine which enhancers and promoters </span>
+<span class='co'># are connected based on loop anchors </span>
+<span class='fu'>LinkedElements</span>(<span class='no'>consensus_loops</span>, <span class='no'>element_ranges</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>element_ranges</span><span class='kw'>[[</span><span class='fl'>2</span>]])</div><div class='output co'>#&gt;     Anchor_1 Anchor_2
+#&gt; 1      E3401   PLXNC1
+#&gt; 2      E9046     RERG
+#&gt; 4       E337    OFCC1
+#&gt; 6        E40   OR51L1
+#&gt; 7      E1280     CD36
+#&gt; 8       E444    RBM33
+#&gt; 9      E2075   RBFOX2
+#&gt; 12     E7729    LARGE
+#&gt; 17     E4198     IQCH
+#&gt; 18      E983   SEMA6D
+#&gt; 22     E3872     RGS3
+#&gt; 23     E4959    NR6A1
+#&gt; 24     E5250     PBX1
+#&gt; 25     E7399    SSBP3
+#&gt; 26     E6741 COLGALT2
+#&gt; 27     E3508    MDGA2
+#&gt; 30     E2160    CDYL2
+#&gt; 31     E8242    CRIM1
+#&gt; 32     E2564  RAPGEF4
+#&gt; 33     E2499   CTNNA2
+#&gt; 35     E5267     TNIK
+#&gt; 36     E8992    EXOC4
+#&gt; 39      E247    SYNE2
+#&gt; 43     E9901     SGCD
+#&gt; 45     E7592  TSPAN18
+#&gt; 58     E3762     KSR1
+#&gt; 77     E1325    RBMS1
+#&gt; 79     E1924     TNS1
+#&gt; 83     E3341   CLDN14
+#&gt; 86     E4289     RBPJ
+#&gt; 87     E1014   ABLIM3
+#&gt; 88     E3608     UTRN
+#&gt; 92     E3247  PPFIBP2
+#&gt; 109    E2680    MMP26</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -165,7 +221,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

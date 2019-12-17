@@ -66,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">LoopRig</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -92,6 +92,9 @@
       <a href="../articles/LoopRig-Tutorial.html">LoopRig Tutorial: Enhancer-Promoter Interactions</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -158,6 +161,42 @@
     <p>A 'LoopRanges' class object for the consensus loops</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Load loops into LoopRanges object </span>
+<span class='no'>ovary_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/loops"</span>, <span class='st'>"ovary_hg19.bedpe"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>spleen_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/loops"</span>, <span class='st'>"spleen_hg19.bedpe"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>pancreas_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/loops"</span>, <span class='st'>"pancreas_hg19.bedpe"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='LoopsToRanges.html'>LoopsToRanges</a></span>(<span class='no'>ovary_loops</span>, <span class='no'>spleen_loops</span>, <span class='no'>pancreas_loops</span>, <span class='kw'>custom_cols</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+
+<span class='co'># Determine consensus loops based on overlap of 1 bp in at least 2 datasets</span>
+<span class='fu'>ConsensusLoops</span>(<span class='no'>loops</span>, <span class='kw'>stringency</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>overlap_threshold</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; $Consensus
+#&gt; GRangesList object of length 2:
+#&gt; $Anchor 1 
+#&gt; GRanges object with 66 ranges and 0 metadata columns:
+#&gt;        seqnames              ranges strand
+#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;
+#&gt;    [1]     chr5   67575828-67585828      *
+#&gt;    [2]     chr5 139929585-139939585      *
+#&gt;    [3]     chrX 106893230-106903230      *
+#&gt;    [4]    chr12   58183783-58193783      *
+#&gt;    [5]    chr12   56893784-56903784      *
+#&gt;    ...      ...                 ...    ...
+#&gt;   [62]     chr5   55775827-55785827      *
+#&gt;   [63]     chr6   53434798-53444798      *
+#&gt;   [64]    chr15   25575147-25585147      *
+#&gt;   [65]     chr1 178789135-178799135      *
+#&gt;   [66]    chr13   42234136-42244136      *
+#&gt; 
+#&gt; ...
+#&gt; &lt;1 more element&gt;
+#&gt; -------
+#&gt; seqinfo: 23 sequences from an unspecified genome; no seqlengths
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "LoopRanges"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -165,7 +204,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

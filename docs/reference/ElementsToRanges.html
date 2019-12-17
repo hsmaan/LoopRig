@@ -66,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">LoopRig</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -92,6 +92,9 @@
       <a href="../articles/LoopRig-Tutorial.html">LoopRig Tutorial: Enhancer-Promoter Interactions</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -150,6 +153,51 @@
     <p>An <em>ElementRanges</em> class object: list of GRanges element data objects</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Load enhancer and promoter elements into an ElementRanges object</span>
+<span class='no'>enhancers</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/elements"</span>, <span class='st'>"enhancers.bed"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>promoters</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/elements"</span>, <span class='st'>"promoters.bed"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>element_ranges</span> <span class='kw'>&lt;-</span> <span class='fu'>ElementsToRanges</span>(<span class='no'>enhancers</span>, <span class='no'>promoters</span>,
+<span class='kw'>element_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"enhancers"</span>, <span class='st'>"promoters"</span>),
+<span class='kw'>custom_cols</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>custom_mcols</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='no'>element_ranges</span></div><div class='output co'>#&gt; $enhancers
+#&gt; GRanges object with 1000 ranges and 1 metadata column:
+#&gt;          seqnames              ranges strand |       mcols
+#&gt;             &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;
+#&gt;      [1]     chr2   48752479-48807772      * |        E573
+#&gt;      [2]     chrX     9000916-9002368      * |       E1383
+#&gt;      [3]     chr4   84406018-84406908      * |       E6724
+#&gt;      [4]    chr15   90773255-90784140      * |       E3155
+#&gt;      [5]     chr1 112525348-112535556      * |       E8752
+#&gt;      ...      ...                 ...    ... .         ...
+#&gt;    [996]    chr12   50781274-50836617      * |       E9077
+#&gt;    [997]     chr6 150067458-150068014      * |       E1642
+#&gt;    [998]    chr17   34263213-34274392      * |       E6285
+#&gt;    [999]     chr3 192954838-192959007      * |       E5603
+#&gt;   [1000]     chr1 204432559-204468852      * |        E281
+#&gt;   -------
+#&gt;   seqinfo: 25 sequences from an unspecified genome; no seqlengths
+#&gt; 
+#&gt; $promoters
+#&gt; GRanges object with 1000 ranges and 1 metadata column:
+#&gt;          seqnames              ranges strand |         mcols
+#&gt;             &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; |   &lt;character&gt;
+#&gt;      [1]     chr2   48752479-48807772      * | STON1-GTF2A1L
+#&gt;      [2]     chrX     9000916-9002368      * |         FAM9B
+#&gt;      [3]     chr4   84406018-84406908      * |       FAM175A
+#&gt;      [4]    chr15   90773255-90784140      * |        GDPGP1
+#&gt;      [5]     chr1 112525348-112535556      * |         KCND3
+#&gt;      ...      ...                 ...    ... .           ...
+#&gt;    [996]    chr12   50781274-50836617      * |         LARP4
+#&gt;    [997]     chr6 150067458-150068014      * |         NUP43
+#&gt;    [998]    chr17   34263213-34274392      * |         LYZL6
+#&gt;    [999]     chr3 192954838-192959007      * |        HRASLS
+#&gt;   [1000]     chr1 204432559-204468852      * |       PIK3C2B
+#&gt;   -------
+#&gt;   seqinfo: 25 sequences from an unspecified genome; no seqlengths
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ElementRanges"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -157,7 +205,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

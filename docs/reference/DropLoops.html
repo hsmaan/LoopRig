@@ -66,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">LoopRig</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -92,6 +92,9 @@
       <a href="../articles/LoopRig-Tutorial.html">LoopRig Tutorial: Enhancer-Promoter Interactions</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -148,6 +151,64 @@
     <p>A subsetted <em>LoopRanges</em> class object</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Load loops into LoopRanges object </span>
+<span class='no'>ovary_loops</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/loops"</span>, <span class='st'>"ovary_hg19.bedpe"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LoopRig"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>loops_ovary</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='LoopsToRanges.html'>LoopsToRanges</a></span>(<span class='no'>ovary_loops</span>, <span class='kw'>custom_cols</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+
+<span class='co'># Subset loops based on total length between 100 to 100000 bp </span>
+<span class='fu'>DropLoops</span>(<span class='no'>loops_ovary</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"loop_size"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>100000</span>))</div><div class='output co'>#&gt; [[1]]
+#&gt; GRangesList object of length 2:
+#&gt; $Anchor 1 
+#&gt; GRanges object with 1478 ranges and 0 metadata columns:
+#&gt;          seqnames              ranges strand
+#&gt;             &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;
+#&gt;      [1]     chr5   29850107-29860107      *
+#&gt;      [2]     chr5 158207008-158217008      *
+#&gt;      [3]     chr5 158367008-158377008      *
+#&gt;      [4]     chr5 121665695-121675695      *
+#&gt;      [5]     chr5   77835823-77845823      *
+#&gt;      ...      ...                 ...    ...
+#&gt;   [1474]     chr4 180481153-180491153      *
+#&gt;   [1475]     chr4 119811155-119821155      *
+#&gt;   [1476]     chr4 188531154-188541154      *
+#&gt;   [1477]     chr4 171841151-171851151      *
+#&gt;   [1478]     chr4   20001623-20011623      *
+#&gt; 
+#&gt; ...
+#&gt; &lt;1 more element&gt;
+#&gt; -------
+#&gt; seqinfo: 23 sequences from an unspecified genome; no seqlengths
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "LoopRanges"</div><div class='input'>
+<span class='co'># Subset loops based on anchor size between 1000 to 25000 bp </span>
+<span class='fu'>DropLoops</span>(<span class='no'>loops_ovary</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"anchor_size"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1000</span>, <span class='fl'>25000</span>))</div><div class='output co'>#&gt; [[1]]
+#&gt; GRangesList object of length 2:
+#&gt; $Anchor 1 
+#&gt; GRanges object with 5647 ranges and 0 metadata columns:
+#&gt;          seqnames              ranges strand
+#&gt;             &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;
+#&gt;      [1]     chr5   14140109-14150109      *
+#&gt;      [2]     chr5   29850107-29860107      *
+#&gt;      [3]     chr5 158137008-158147008      *
+#&gt;      [4]     chr5 158197008-158207008      *
+#&gt;      [5]     chr5 158167008-158177008      *
+#&gt;      ...      ...                 ...    ...
+#&gt;   [5643]     chr4   78621154-78631154      *
+#&gt;   [5644]     chr4   33601622-33611622      *
+#&gt;   [5645]     chr4   41452017-41462017      *
+#&gt;   [5646]     chr4   99321151-99331151      *
+#&gt;   [5647]     chr4 169501151-169511151      *
+#&gt; 
+#&gt; ...
+#&gt; &lt;1 more element&gt;
+#&gt; -------
+#&gt; seqinfo: 23 sequences from an unspecified genome; no seqlengths
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "LoopRanges"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -155,7 +216,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
