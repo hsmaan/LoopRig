@@ -14,7 +14,10 @@ promoters <- system.file("extdata/elements", "promoters.bed", package = "LoopRig
 loops_dir <- system.file("extdata/loops", package = "LoopRig", mustWork = TRUE)
 elements_dir <- system.file("extdata/elements", package = "LoopRig", mustWork = TRUE)
 
-  
+tempdir <- tempdir()
+
+file.copy(paste(loops_dir, "/exp_bed_dummy.bed", sep = ""), tempdir)
+
 # Get LoopRanges and ElementRanges objects
 
 element_ranges <- ElementsToRanges(enhancers, promoters, element_names = c("enhancers", "promoters"), custom_cols = 1, custom_mcols = 4)
@@ -31,15 +34,15 @@ consensus_loops <- ConsensusLoops(loops)
 
 test_that("error handling", {
   
-  expect_error(ExportBED(ovary_loops, index = -1, file_name = paste(loops_dir, "exp_bed_dummy2.bed", sep = "/")), "Please enter a positive integer indicating the index of LoopRanges or ElementRanges object to export")
+  expect_error(ExportBED(ovary_loops, index = -1, file_name = paste(tempdir, "exp_bed_dummy2.bed", sep = "/")), "Please enter a positive integer indicating the index of LoopRanges or ElementRanges object to export")
   
-  expect_error(ExportBED(ovary_loops, index = 2, file_name = paste(loops_dir, "exp_bed_dummy2.bed", sep = "/")), "Incorrect object type. Please enter either a 'LoopRanges' or 'ElementRanges' object")
+  expect_error(ExportBED(ovary_loops, index = 2, file_name = paste(tempdir, "exp_bed_dummy2.bed", sep = "/")), "Incorrect object type. Please enter either a 'LoopRanges' or 'ElementRanges' object")
   
-  expect_error(ExportBED(consensus_loops, index = 1, mcol = TRUE, file_name = paste(loops_dir, "exp_bed_dummy2.bed", sep = "/")), "Object has no mcols, please choose mcol = FALSE")
+  expect_error(ExportBED(consensus_loops, index = 1, mcol = TRUE, file_name = paste(tempdir, "exp_bed_dummy2.bed", sep = "/")), "Object has no mcols, please choose mcol = FALSE")
   
-  expect_error(ExportBED(element_ranges_no_mcol, index = 1, mcol = TRUE, file_name =  paste(elements_dir, "exp_bed_dummy.bed2", sep = "/")), "Object has no mcols, please choose mcol = FALSE")
+  expect_error(ExportBED(element_ranges_no_mcol, index = 1, mcol = TRUE, file_name =  paste(tempdir, "exp_bed_dummy.bed2", sep = "/")), "Object has no mcols, please choose mcol = FALSE")
   
-  expect_error(ExportBED(element_ranges, index = 1, file_name = paste(elements_dir, "exp_bed_dummy.bed", sep = "/")), "File already exists, cannot overwrite")
+  expect_error(ExportBED(element_ranges, index = 1, file_name = paste(tempdir, "exp_bed_dummy.bed", sep = "/")), "File already exists, cannot overwrite")
   
 })
 
@@ -47,17 +50,19 @@ test_that("error handling", {
 
 test_that("expected output", {
   
-  expect_equal(ExportBED(element_ranges, index = 1, file_name = paste(elements_dir, "exp_bed_dummy2.bed", sep = "/")), paste("BED file exported to ", paste(elements_dir, "exp_bed_dummy2.bed", sep = "/"), sep = ""))
+  expect_equal(ExportBED(element_ranges, index = 1, file_name = paste(tempdir, "exp_bed_dummy2.bed", sep = "/")), paste("BED file exported to ", paste(tempdir, "exp_bed_dummy2.bed", sep = "/"), sep = ""))
   
-  expect_equal(ExportBED(element_ranges, index = 1, mcol = TRUE, file_name = paste(elements_dir, "exp_bed_dummy3.bed", sep = "/")), paste("BED file exported to ", paste(elements_dir, "exp_bed_dummy3.bed", sep = "/"), sep = ""))
+  expect_equal(ExportBED(element_ranges, index = 1, mcol = TRUE, file_name = paste(tempdir, "exp_bed_dummy3.bed", sep = "/")), paste("BED file exported to ", paste(tempdir, "exp_bed_dummy3.bed", sep = "/"), sep = ""))
   
-  expect_equal(ExportBED(consensus_loops, index = 1, file_name = paste(loops_dir, "exp_bed_dummy2.bed", sep = "/")), paste("BEDPE file exported to ", paste(loops_dir, "exp_bed_dummy2.bed", sep = "/"), sep = ""))
+  file.remove(paste(tempdir, "exp_bed_dummy2.bed", sep = "/"))
+  file.remove(paste(tempdir, "exp_bed_dummy3.bed", sep = "/"))
   
-  expect_equal(ExportBED(loops_mcols, index = 1, mcol = TRUE, file_name = paste(loops_dir, "exp_bed_dummy3.bed", sep = "/")), paste("BEDPE file exported to ", paste(loops_dir, "exp_bed_dummy3.bed", sep = "/"), sep = ""))
+  expect_equal(ExportBED(consensus_loops, index = 1, file_name = paste(tempdir, "exp_bed_dummy2.bed", sep = "/")), paste("BEDPE file exported to ", paste(tempdir, "exp_bed_dummy2.bed", sep = "/"), sep = ""))
+  
+  expect_equal(ExportBED(loops_mcols, index = 1, mcol = TRUE, file_name = paste(tempdir, "exp_bed_dummy3.bed", sep = "/")), paste("BEDPE file exported to ", paste(tempdir, "exp_bed_dummy3.bed", sep = "/"), sep = ""))
   
 })
 
-file.remove(paste(elements_dir, "exp_bed_dummy2.bed", sep = "/"))
-file.remove(paste(elements_dir, "exp_bed_dummy3.bed", sep = "/"))
-file.remove(paste(loops_dir, "exp_bed_dummy2.bed", sep = "/"))
-file.remove(paste(loops_dir, "exp_bed_dummy3.bed", sep = "/"))
+file.remove(paste(tempdir, "exp_bed_dummy.bed", sep = "/"))
+file.remove(paste(tempdir, "exp_bed_dummy2.bed", sep = "/"))
+file.remove(paste(tempdir, "exp_bed_dummy3.bed", sep = "/"))

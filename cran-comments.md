@@ -2,9 +2,9 @@
 
 This is a resubmission. In this version I have:
 
-* Removed "This package" from the package description field
-* Omitted redundant text from the title
-* Fleshed out the description to include information about the methods and functionality 
+* Added small executable examples for Rd-files
+* Removed code that previously modified user's home filespace (from tests) - code now writes to tempdir() instead when necessary  
+* Maintainer asked for potential references describing methods in package, but unfortunately the package doesn't have any heavy statistical methodology that warrants a stand-alone paper/citation. The main rationale for the package is simplification of code by wrapping typical workflows in a series of functions. There is an analysis based manuscript being prepared that uses the package, but that will only include package as a method - it will not be a methodology focused manuscript       
 
 ## Test environments 
 
@@ -19,7 +19,7 @@ This is a resubmission. In this version I have:
 ## R CMD check results
 
 ── R CMD check results ────────────────────────────────────── LoopRig 0.1.1 ────
-Duration: 59s
+Duration: 1m 4.5s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 

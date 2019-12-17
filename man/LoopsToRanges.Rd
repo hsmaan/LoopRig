@@ -22,3 +22,11 @@ A \emph{LoopRanges} class object: list of GRanges looping data objects
 \description{
 Uses tab delimited looping data in the form of BEDPE files to create custom GRanges loop objects
 }
+\examples{
+# Load loops into LoopRanges object 
+ovary_loops <- system.file("extdata/loops", "ovary_hg19.bedpe", 
+package = "LoopRig", mustWork = TRUE) 
+spleen_loops <- system.file("extdata/loops", "spleen_hg19.bedpe", 
+package = "LoopRig", mustWork = TRUE)
+LoopsToRanges(ovary_loops, spleen_loops, custom_cols = 0)
+}

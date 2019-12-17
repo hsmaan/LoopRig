@@ -8,6 +8,25 @@
 #' @param range_out_y A boolean indicating if the output should be a subset element ranges object for element_ranges_y instead of the default dataframe. (default = FALSE) 
 #' @param overlap_threshold Single numerical input for significant base-pair overlap to be considered 'overlapping'. Default is 1 base-pair.
 #' @return Returns a dataframe indicating scaffold linked elements in the form of their first metadata columns and the loop IDs for their scaffolds. The element_ranges_x (scaffold) are always under column 1, and element_ranges_y (links) are always under column 2.
+#' @examples 
+#' # Load enhancer and promoter elements into an ElementRanges object
+#' enhancers <- system.file("extdata/elements", "enhancers.bed", package = "LoopRig", mustWork = TRUE)
+#' promoters <- system.file("extdata/elements", "promoters.bed", package = "LoopRig", mustWork = TRUE)
+#' element_ranges <- ElementsToRanges(enhancers, promoters, 
+#' element_names = c("enhancers", "promoters"), 
+#' custom_cols = 1, custom_mcols = 4)
+#'
+#' # Load loops into LoopRanges object and determine consensus loops
+#' ovary_loops <- system.file("extdata/loops", "ovary_hg19.bedpe", 
+#' package = "LoopRig", mustWork = TRUE)
+#' pancreas_loops <- system.file("extdata/loops", "pancreas_hg19.bedpe", 
+#' package = "LoopRig", mustWork = TRUE)
+#' loops <- LoopsToRanges(ovary_loops, pancreas_loops, custom_cols = 0)
+#' consensus_loops <- ConsensusLoops(loops)
+#' 
+#' # Based on consensus loops, determine which loops are anchored by enhancers and which 
+#' # promoters are overlapping with these loops
+#' ScaffoldElements(consensus_loops, element_ranges[[1]], element_ranges[[2]])   
 #' @import GenomicRanges
 #' @import IRanges
 #' @export 

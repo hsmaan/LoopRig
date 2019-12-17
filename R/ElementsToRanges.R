@@ -6,6 +6,14 @@
 #' @param custom_cols An integer indicating the number of extra columns in the BED file.
 #' @param custom_mcols An integer or vector of integers indicating which columns are used for metadata (optional) 
 #' @return An \emph{ElementRanges} class object: list of GRanges element data objects 
+#' @examples 
+#' # Load enhancer and promoter elements into an ElementRanges object
+#' enhancers <- system.file("extdata/elements", "enhancers.bed", package = "LoopRig", mustWork = TRUE)
+#' promoters <- system.file("extdata/elements", "promoters.bed", package = "LoopRig", mustWork = TRUE)
+#' element_ranges <- ElementsToRanges(enhancers, promoters, 
+#' element_names = c("enhancers", "promoters"), 
+#' custom_cols = 1, custom_mcols = 4)
+#' element_ranges
 #' @import GenomicRanges
 #' @import IRanges
 #' @importFrom utils read.table
