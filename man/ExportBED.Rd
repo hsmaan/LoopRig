@@ -18,3 +18,29 @@ ExportBED(obj, index = NULL, mcol = FALSE, file_name)
 \description{
 Uses ElementRanges objects to output to BED format, and LoopRanges objects to output to BEDPE format
 }
+\examples{
+# Load enhancer and promoter elements into an ElementRanges object
+enhancers <- system.file("extdata/elements", "enhancers.bed", package = "LoopRig", mustWork = TRUE)
+promoters <- system.file("extdata/elements", "promoters.bed", package = "LoopRig", mustWork = TRUE)
+element_ranges <- ElementsToRanges(enhancers, promoters, 
+element_names = c("enhancers", "promoters"), 
+custom_cols = 1, custom_mcols = 4)
+
+# Call temporary directory 
+tempdir <- tempdir()
+
+# Export enhancers into temporary directory 
+ExportBED(element_ranges, index = 1, file_name = paste(tempdir, "promoters_ex.bed", sep = "/"))
+
+# Load loops into LoopRanges object 
+ovary_loops <- system.file("extdata/loops", "ovary_hg19.bedpe", 
+package = "LoopRig", mustWork = TRUE) 
+spleen_loops <- system.file("extdata/loops", "spleen_hg19.bedpe", 
+package = "LoopRig", mustWork = TRUE)
+pancreas_loops <- system.file("extdata/loops", "pancreas_hg19.bedpe", 
+package = "LoopRig", mustWork = TRUE)
+loops <- LoopsToRanges(ovary_loops, spleen_loops, pancreas_loops, custom_cols = 0)
+
+# Export ovary loops into temporary directory 
+ExportBED(loops, index = 1, file_name = paste(tempdir, "ovary_loops_ex.bed", sep = "/"))
+}

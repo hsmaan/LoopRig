@@ -23,3 +23,15 @@ A subsetted \emph{LoopRanges} class object
 \description{
 Subset loops based on loop and anchor size filters. Can be used to filter the loops in the \emph{LoopRanges} object before or after calling ConsensusLoops
 }
+\examples{
+# Load loops into LoopRanges object 
+ovary_loops <- system.file("extdata/loops", "ovary_hg19.bedpe", 
+package = "LoopRig", mustWork = TRUE) 
+loops_ovary <- LoopsToRanges(ovary_loops, custom_cols = 0)
+
+# Subset loops based on total length between 100 to 100000 bp 
+DropLoops(loops_ovary, type = "loop_size", size = c(100, 100000))
+
+# Subset loops based on anchor size between 1000 to 25000 bp 
+DropLoops(loops_ovary, type = "anchor_size", size = c(1000, 25000))
+}

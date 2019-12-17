@@ -9,6 +9,17 @@
 #'}
 #' @param size A numerical vector indicating size range to keep (e.g. c(start, end)) 
 #' @return A subsetted \emph{LoopRanges} class object 
+#' @examples 
+#' # Load loops into LoopRanges object 
+#' ovary_loops <- system.file("extdata/loops", "ovary_hg19.bedpe", 
+#' package = "LoopRig", mustWork = TRUE) 
+#' loops_ovary <- LoopsToRanges(ovary_loops, custom_cols = 0)
+#' 
+#' # Subset loops based on total length between 100 to 100000 bp 
+#' DropLoops(loops_ovary, type = "loop_size", size = c(100, 100000))
+#' 
+#' # Subset loops based on anchor size between 1000 to 25000 bp 
+#' DropLoops(loops_ovary, type = "anchor_size", size = c(1000, 25000))
 #' @import GenomicRanges
 #' @import IRanges
 #' @export  

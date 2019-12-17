@@ -26,3 +26,23 @@ Returns a dataframe indicating the unique element links present in the form of t
 \description{
 Using a finalized \emph{LoopRanges} loops object and two sets of elements, determines which elements are linked by loops through overlap of anchor regions
 }
+\examples{
+# Load enhancer and promoter elements into an ElementRanges object
+enhancers <- system.file("extdata/elements", "enhancers.bed", package = "LoopRig", mustWork = TRUE)
+promoters <- system.file("extdata/elements", "promoters.bed", package = "LoopRig", mustWork = TRUE)
+element_ranges <- ElementsToRanges(enhancers, promoters, 
+element_names = c("enhancers", "promoters"), 
+custom_cols = 1, custom_mcols = 4)
+
+# Load loops into LoopRanges object and determine consensus loops (keep all)
+ovary_loops <- system.file("extdata/loops", "ovary_hg19.bedpe", 
+package = "LoopRig", mustWork = TRUE)
+pancreas_loops <- system.file("extdata/loops", "pancreas_hg19.bedpe", 
+package = "LoopRig", mustWork = TRUE)
+loops <- LoopsToRanges(ovary_loops, pancreas_loops, custom_cols = 0)
+consensus_loops <- ConsensusLoops(loops, keep_all = TRUE)
+
+# Based on consensus loops, determine which enhancers and promoters 
+# are connected based on loop anchors 
+LinkedElements(consensus_loops, element_ranges[[1]], element_ranges[[2]])  
+}

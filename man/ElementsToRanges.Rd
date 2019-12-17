@@ -22,3 +22,12 @@ An \emph{ElementRanges} class object: list of GRanges element data objects
 \description{
 Uses tab delimited element data in the form of BED4 or BED12 files to create GRanges element objects
 }
+\examples{
+# Load enhancer and promoter elements into an ElementRanges object
+enhancers <- system.file("extdata/elements", "enhancers.bed", package = "LoopRig", mustWork = TRUE)
+promoters <- system.file("extdata/elements", "promoters.bed", package = "LoopRig", mustWork = TRUE)
+element_ranges <- ElementsToRanges(enhancers, promoters, 
+element_names = c("enhancers", "promoters"), 
+custom_cols = 1, custom_mcols = 4)
+element_ranges
+}

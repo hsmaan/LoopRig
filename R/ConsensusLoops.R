@@ -8,6 +8,18 @@
 #' @param resolutions An optional numerical vector of anchor sizes - to be used only when split_anchors=TRUE
 #' @param keep_all If TRUE, keeps all of the loops (concatenation of looping datasets)
 #' @return A 'LoopRanges' class object for the consensus loops 
+#' @examples 
+#' # Load loops into LoopRanges object 
+#' ovary_loops <- system.file("extdata/loops", "ovary_hg19.bedpe", 
+#' package = "LoopRig", mustWork = TRUE) 
+#' spleen_loops <- system.file("extdata/loops", "spleen_hg19.bedpe", 
+#' package = "LoopRig", mustWork = TRUE)
+#' pancreas_loops <- system.file("extdata/loops", "pancreas_hg19.bedpe", 
+#' package = "LoopRig", mustWork = TRUE)
+#' loops <- LoopsToRanges(ovary_loops, spleen_loops, pancreas_loops, custom_cols = 0)
+#' 
+#' # Determine consensus loops based on overlap of 1 bp in at least 2 datasets
+#' ConsensusLoops(loops, stringency = 2, overlap_threshold = 1)
 #' @import GenomicRanges
 #' @import IRanges
 #' @importFrom S4Vectors queryHits subjectHits intersect.Vector pc 
