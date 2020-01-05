@@ -3,6 +3,8 @@
 
 # LoopRig <img src="man/figures/looprig_logo.png" height="180px" align="right"/>
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/LoopRig)](https://cran.r-project.org/package=LoopRig)
 [![Build
 Status](https://travis-ci.com/hsmaan/LoopRig.svg?token=jBqxwnZzU1qwLZyzpxME&branch=master)](https://travis-ci.com/hsmaan/LoopRig)
 [![AppVeyor build
@@ -17,7 +19,13 @@ data.
 
 ## Installation
 
-LoopRig can be installed directly from GitHub:
+LoopRig is available on CRAN and can be installed using:
+
+``` r
+install.packages("LoopRig")
+```
+
+Alternatively, LoopRig can also be installed directly from GitHub:
 
 ``` r
 # install.packages("devtools")
